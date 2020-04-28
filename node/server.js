@@ -5,8 +5,8 @@ var app = express();
 
 var CLIENTID = "vDSCxp-uAMIxUs3viYuz9oK7-1l9BjmMZWHdQ6ckSwy6z2gwfXkvXCSzy4ejXRqW";
 var CLIENTSECRET = "IEVi0recfI0wsCpuSAadiA8z9GEp8xsAS7lUekwo7HeQf2vVSWcuhWzBdo8FbcmMTLQD8qUYEBV1MddFDZviRw";
-var accessToken= "?access_token=Y-vG4Ti-HW11OiSj-rMRM5LsN1Gt_hhfY6v9_Fz_gOS3qZEAD9BgeXAzmjq_XDlU";
-var API = "https://api.genius.com/search?q=Kendrick%20Lamar";
+var accessToken= "kG91TrvmqYf06aeYAOpgxFTXcmUAJ0N0wRCtbn7m-tHXsfGVDWULJAGro3dbQWfS";
+var API = "https://api.genius.com/artists/105";
 
 
 app.get('/', function(req, res){
