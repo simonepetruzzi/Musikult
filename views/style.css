@@ -1,0 +1,41 @@
+body {
+    padding-top: 100px;
+}
+
+#bigcontainer {
+    position: relative;
+ }
+ 
+ #background {
+    position: fixed;
+
+    overflow: hidden;
+    z-index: -1;
+
+ }
+
+ #smallcontainer {
+    padding-top: 300px;
+ }
+
+ h1 {
+
+    padding-top: 50px;
+    text-align: center;
+
+    font-size: 80px;
+    color: rgb(194, 160, 10);
+ }
+ h2 {
+     
+    text-align: center;
+
+    font-size: 60px;
+    color: rgb(255, 255, 255);
+ }
+
+
+.navbar-brand {
+    height: 55px;
+    line-height: 41px;
+}
