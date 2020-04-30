@@ -6,7 +6,7 @@ var app = express();
 var CLIENTID = "vDSCxp-uAMIxUs3viYuz9oK7-1l9BjmMZWHdQ6ckSwy6z2gwfXkvXCSzy4ejXRqW";
 var CLIENTSECRET = "IEVi0recfI0wsCpuSAadiA8z9GEp8xsAS7lUekwo7HeQf2vVSWcuhWzBdo8FbcmMTLQD8qUYEBV1MddFDZviRw";
 var accessToken= "kG91TrvmqYf06aeYAOpgxFTXcmUAJ0N0wRCtbn7m-tHXsfGVDWULJAGro3dbQWfS";
-var API = "https://api.genius.com/search?q=Kendrick%20Lamar";
+var API = "https://api.genius.com/search?q=house ";
 
 
 app.get('/', function(req, res){
@@ -19,8 +19,54 @@ app.get('/', function(req, res){
     request(options, function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body);
-            console.log(info);
-            res.send(info);
+			var a=true;
+			var i=1;
+			var canzonononi = [];
+			var artistononi = [];
+			var artcheck = [];
+			var song1 = info.response.hits[0];
+			var fotosong1 = song1.result.song_art_image_url;
+			var nomeartist1 = song1.result.primary_artist.name;
+			var nomesong1 = song1.result.title;
+			var idsong1 = song1.result.id;
+			var idartist1 = song1.result.primary_artist.id;
+			var artistphoto1 = song1.result.primary_artist.image_url;
+			var jsonsong1 = {"name":nomesong1,"id":idsong1,"artist":nomeartist1,"photo":fotosong1};
+			var jsonartist1 = {"name":nomeartist1,"id":idartist1,"photo":artistphoto1};
+			artistononi.push(jsonartist1);
+			canzonononi.push(jsonsong1);
+			artcheck.push(idartist1);
+			for (i;i<10;i++){
+				var song = info.response.hits[i];
+				var fotosong = song.result.song_art_image_url;
+				var nomeartist = song.result.primary_artist.name;
+				var nomesong = song.result.title;
+				var idsong = song.result.id;
+				var idartist = song.result.primary_artist.id;
+				var artistphoto = song.result.primary_artist.image_url;
+				var jsonsong = {"name":nomesong,"id":idsong,"artist":nomeartist,"photo":fotosong};
+				var jsonartist = {"name":nomeartist,"id":idartist,"photo":artistphoto};
+				canzonononi.push(jsonsong);
+				for (var j=0;j<artcheck.length;j++){
+					if(idartist==artcheck[j]) a=false;
+				}
+				if(a==true){
+					artistononi.push(jsonartist);
+					artcheck.push(idartist);
+				}
+				a=true;
+				
+			}
+			
+			
+			var x = {
+				"songs":canzonononi,
+				"artists":artistononi
+			}
+			//var song = info.response.hits;
+            //console.log(info);
+            //res.send(info);
+			res.send(x);
         }
         else {
             console.log(error);
