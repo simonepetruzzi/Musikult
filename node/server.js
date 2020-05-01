@@ -57,15 +57,10 @@ app.get('/', function(req, res){
 				a=true;
 				
 			}
-			
-			
 			var x = {
 				"songs":canzonononi,
 				"artists":artistononi
 			}
-			//var song = info.response.hits;
-            //console.log(info);
-            //res.send(info);
 			res.send(x);
         }
         else {
