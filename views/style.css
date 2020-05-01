@@ -20,18 +20,20 @@ body {
 
  h1 {
 
-    padding-top: 50px;
-    text-align: center;
+   padding-right:130px;
+   padding-top: 50px;
+   text-align: center;
 
-    font-size: 80px;
-    color: rgb(194, 160, 10);
+   font-size: 80px;
+   color: rgb(194, 160, 10);
  }
  h2 {
      
-    text-align: center;
+   padding-left: 30px;
+   text-align: center;
 
-    font-size: 60px;
-    color: rgb(255, 255, 255);
+   font-size: 60px;
+   color: rgb(255, 255, 255);
  }
 
 
