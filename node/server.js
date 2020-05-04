@@ -3,13 +3,29 @@ var request = require('request');
 
 var app = express();
 
+//Genius
 var CLIENTID = "vDSCxp-uAMIxUs3viYuz9oK7-1l9BjmMZWHdQ6ckSwy6z2gwfXkvXCSzy4ejXRqW";
 var CLIENTSECRET = "IEVi0recfI0wsCpuSAadiA8z9GEp8xsAS7lUekwo7HeQf2vVSWcuhWzBdo8FbcmMTLQD8qUYEBV1MddFDZviRw";
 var accessToken= "kG91TrvmqYf06aeYAOpgxFTXcmUAJ0N0wRCtbn7m-tHXsfGVDWULJAGro3dbQWfS";
 var API = "https://api.genius.com/search?q=house ";
 
+//LastFM 
+var LastFmKey = '36e40c0bdeda4b90b8b007257a8de61d';
+function LastFmReq(method) {
+	return 'http://ws.audioscrobbler.com/2.0/?method='+method+'&api_key='+ LastFmKey +'&format=json';
+}
 
+//LastFm getTopArtists
 app.get('/', function(req, res){
+
+	request(LastFmReq('chart.gettopartists'), function(error, response, body) {
+		res.send(JSON.parse(body));
+	});
+		
+});
+
+//Genius search
+app.get('/1', function(req, res){
     var options = {
         url: API,
         headers: {
