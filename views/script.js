@@ -1,6 +1,10 @@
 
 document.getElementById("search-field").addEventListener("input", searchEvent);
 
+function spotifyLogin() {
+    window.location.href = "http://localhost:3000/loginSpotify";
+}
+
 function searchEvent() {
     console.log(document.getElementById("search-field").value);
 
@@ -15,5 +19,8 @@ function handleResponse(e) {
         console.log("response received");
     }
 }
+
+
+
 
 
