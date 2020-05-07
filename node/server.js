@@ -1,9 +1,13 @@
+/************** IMPORTS *******************/
 var express = require("express");
 var request = require('request');
 
 var querystring = require('querystring');
+/******************************************/
 
+/************** LOCAL VARIABLES *******************/
 var app = express();
+var PORT = 3000;
 
 //Genius
 var CLIENTID = "vDSCxp-uAMIxUs3viYuz9oK7-1l9BjmMZWHdQ6ckSwy6z2gwfXkvXCSzy4ejXRqW";
@@ -17,8 +21,13 @@ function LastFmReq(method) {
 	return 'http://ws.audioscrobbler.com/2.0/?method='+method+'&api_key='+ LastFmKey +'&format=json';
 }
 
+//Spotify
+var spotify_client_id = 'f57702fc8f5f4deca9cd5517c8f520a8';
+var spotify_client_secret = '9a55bd0d2fac417e86b1a915c132bcad';
+/***************************************************/
+
 //LastFm getTopTracks
-app.get('/', function(req, res){
+app.get('/1', function(req, res){
 
 	request(LastFmReq('chart.gettoptracks'), function(error, response, body) {
 		res.send(JSON.parse(body));
@@ -27,69 +36,62 @@ app.get('/', function(req, res){
 });
 
 //Genius search
-app.get('/1', function(req, res){
+app.get('/', function(req, res){
+
     var options = {
         url: API,
         headers: {
             'Authorization': 'Bearer ' + accessToken
          }
-    };
-    request(options, function callback(error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var info = JSON.parse(body);
-			var a=true;
-			var i=1;
-			var canzonononi = [];
-			var artistononi = [];
-			var artcheck = [];
-			var song1 = info.response.hits[0];
-			var fotosong1 = song1.result.song_art_image_url;
-			var nomeartist1 = song1.result.primary_artist.name;
-			var nomesong1 = song1.result.title;
-			var idsong1 = song1.result.id;
-			var idartist1 = song1.result.primary_artist.id;
-			var artistphoto1 = song1.result.primary_artist.image_url;
-			var jsonsong1 = {"name":nomesong1,"id":idsong1,"artist":nomeartist1,"photo":fotosong1};
-			var jsonartist1 = {"name":nomeartist1,"id":idartist1,"photo":artistphoto1};
-			artistononi.push(jsonartist1);
-			canzonononi.push(jsonsong1);
-			artcheck.push(idartist1);
-			for (i;i<10;i++){
-				var song = info.response.hits[i];
-				var fotosong = song.result.song_art_image_url;
-				var nomeartist = song.result.primary_artist.name;
-				var nomesong = song.result.title;
-				var idsong = song.result.id;
-				var idartist = song.result.primary_artist.id;
-				var artistphoto = song.result.primary_artist.image_url;
-				var jsonsong = {"name":nomesong,"id":idsong,"artist":nomeartist,"photo":fotosong};
-				var jsonartist = {"name":nomeartist,"id":idartist,"photo":artistphoto};
-				canzonononi.push(jsonsong);
-				for (var j=0;j<artcheck.length;j++){
-					if(idartist==artcheck[j]) a=false;
-				}
-				if(a==true){
-					artistononi.push(jsonartist);
-					artcheck.push(idartist);
-				}
-				a=true;
-				
-			}
-			var x = {
-				"songs":canzonononi,
-				"artists":artistononi
-			}
-			res.send(x);
-        }
-        else {
-            console.log(error);
-         }
-    });
-  
+	};
+
+	//makes the request to Genius Api to obtain the research data
+    request(options, function callback(error, response, body) {		
+
+		if (!error && response.statusCode == 200) 
+			res.send(geniusFilter(JSON.parse(body)));
+		
+		else 
+			console.log(error);
+
+    });  
 });
 
-var spotify_client_id = 'f57702fc8f5f4deca9cd5517c8f520a8';
-var spotify_client_secret = '9a55bd0d2fac417e86b1a915c132bcad';
+//This function filters data coming from Genius Api into a lighter JSON containing essential info
+function geniusFilter(info) {								//info is Genius JSON
+
+	var x = {                               				//x is the result
+		"songs": [],
+		"artists": []
+	}
+	
+	var hit;
+	for(i = 0; i < info.response.hits.length; i++) {
+
+		hit = info.response.hits[i];						
+
+		x.songs.push({										
+			"name": hit.result.primary_artist.name,
+			"id": hit.result.id,
+			"artist": hit.result.primary_artist.name,
+			"photo": hit.result.song_art_image_url
+		});
+
+		var artist = {										//pushes artist only if it has not been 	
+			"name": hit.result.primary_artist.name,			//pushed yet
+			"id": hit.result.primary_artist.id,
+			"photo": hit.result.primary_artist.image_url
+		};
+		
+		if(!x.artists.includes(artist)) x.artists.push(artist);	
+
+	}
+
+	return x;
+
+}
+
+
 
 //spotify oAuth
 app.get('/loginSpotify', function(req, res) {
@@ -167,34 +169,8 @@ app.get('/2',function(req,res) {
 	
 })
   
-
-/*
-app.get('/', function(req, res) {
-    console.log("code taken");
-    // res.send('the access token is: ' + req.query.code);
-  
-    var formData = {
-
-        code: req.query.code,
-        client_id: "vDSCxp-uAMIxUs3viYuz9oK7-1l9BjmMZWHdQ6ckSwy6z2gwfXkvXCSzy4ejXRqW",
-        client_secret: "IEVi0recfI0wsCpuSAadiA8z9GEp8xsAS7lUekwo7HeQf2vVSWcuhWzBdo8FbcmMTLQD8qUYEBV1MddFDZviRw",
-        redirect_uri: "http://localhost:3000",
-        response_type: "code",
-        grant_type: "authorization_code"
-
-    }
- 
-  
-    request.post({url:'https://www.googleapis.com/oauth2/v4/token', form: formData}, function optionalCallback(err, httpResponse, body) {
-        if (err) {
-            return console.error('upload failed:', err);
-         }
-        console.log('Upload successful!  Server responded with:', body);
-        var info = JSON.parse(body);
-        res.send("Got the token "+ info.access_token);
-        a_t = info.access_token;a_t = info.access_token;
-    });
-
+////////////////////////////////////////////////
+app.listen(PORT, function() {
+	console.log("Server listening on port " + PORT);
 });
-*/
-app.listen(3000);
+////////////////////////////////////////////////
