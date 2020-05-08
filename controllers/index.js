@@ -9,4 +9,4 @@ router.get("/",(req,res) => {
 	res.sendFile(projectPath + '/views/home.html');
 });
 
-module.exports = router
+module.exports = router;
