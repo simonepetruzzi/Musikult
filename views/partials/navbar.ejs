@@ -21,4 +21,40 @@
         </form>
     </div>
 </nav>
+
+<script type="text/javascript" language="javascript">
+
+    if (!"WebSocket" in window) alert("WebSocket not supported by your browser");
+
+    var socket = new WebSocket('ws://localhost:4000/');
+
+    socket.onopen = function() {
+        console.log('[WEBSOCKET] Connessione con il server stabilita');
+        // send data to the server
+        socket.send('Il client ti saluta 👋');
+    }
+
+    // When data is received
+    socket.onmessage = function(event) {
+        console.log(event.data);
+        var div = document.getElementById('webSocketDiv');
+        div.innerHTML += event.data + "<br>"
+    }
+
+    // A connection could not be made
+    socket.onerror = function(event) {
+        console.log(event);
+    }
+
+    // A connection was closed
+    socket.onclose = function(code, reason) {
+        console.log(code, reason);
+    }
+
+    // Close the connection when the window is closed
+    window.addEventListener('beforeunload', function() {
+        socket.close();
+    });
+
+</script>
         
