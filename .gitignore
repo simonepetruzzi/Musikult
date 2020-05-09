@@ -7,5 +7,7 @@
 ##node_modules folders
 /node_modules
 
+/package-lock.json
+
 ##keys.js files
 #keys.js #DECOMMENT THIS LINE TO NOT PUSH CLIENT IDS AND SECRET KEYS IN THE REPOSITORY
