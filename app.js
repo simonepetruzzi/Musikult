@@ -5,7 +5,6 @@ const app = express();
 const global = require('../Musikult/modules/global');
 
 app.use(express.static('views'));
-
 app.use(require('./controllers'));
 
 // set the view engine to ejs
