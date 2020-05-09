@@ -83,7 +83,7 @@ function geniusFilter(info) {								//info is Genius JSON
 			"photo": hit.result.primary_artist.image_url
 		};
 		
-		if(!x.artists.includes(artist)) x.artists.push(artist);	
+		if(!x.artists.includes(artist)) x.artists.push(artist);
 
 	}
 

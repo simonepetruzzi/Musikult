@@ -1,0 +1,28 @@
+<!-- BIG CONTAINER TEMPLATE -->
+
+<div class="container-fluid" id="bigcontainer">
+
+    <div class="container-fluid" id="background">
+        <h1>Musikult </h1>
+        <h2>Your music portal</h2>
+        
+        <div style = "padding-top: 40px;"></div>
+
+        <% if(!isLogged) { %>
+            <div class= "container-fluid">
+                <div class = "row justify-content-center">
+                    <div class = "col-sm-3">    
+                        <button type="button" class="btn btn-success btn-lg" id="spotifyButton" onclick="spotifyLogin()">
+                            Connect to Spotify 
+                        </button> 
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <% if(isLogged) { %>
+        <%- include('smallContainer'); %>
+    <% } %> 
+
+</div>
