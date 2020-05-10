@@ -13,7 +13,7 @@ var PORT = 3000;
 var CLIENTID = "vDSCxp-uAMIxUs3viYuz9oK7-1l9BjmMZWHdQ6ckSwy6z2gwfXkvXCSzy4ejXRqW";
 var CLIENTSECRET = "IEVi0recfI0wsCpuSAadiA8z9GEp8xsAS7lUekwo7HeQf2vVSWcuhWzBdo8FbcmMTLQD8qUYEBV1MddFDZviRw";
 var accessToken= "kG91TrvmqYf06aeYAOpgxFTXcmUAJ0N0wRCtbn7m-tHXsfGVDWULJAGro3dbQWfS";
-var API = "https://api.genius.com/search?q=house ";
+var API = "https://api.genius.com/search?q=kendrick%20lamar";
 
 //LastFM 
 var LastFmKey = '36e40c0bdeda4b90b8b007257a8de61d';
@@ -49,7 +49,8 @@ app.get('/', function(req, res){
     request(options, function callback(error, response, body) {		
 
 		if (!error && response.statusCode == 200) 
-			res.send(geniusFilter(JSON.parse(body)));
+			res.send(JSON.parse(body));
+			//res.send(geniusFilter(JSON.parse(body)));
 		
 		else 
 			console.log(error);
@@ -66,12 +67,13 @@ function geniusFilter(info) {								//info is Genius JSON
 	}
 	
 	var hit;
+	var ids = [];
 	for(i = 0; i < info.response.hits.length; i++) {
 
 		hit = info.response.hits[i];						
 
 		x.songs.push({										
-			"name": hit.result.primary_artist.name,
+			"name": hit.result.title,
 			"id": hit.result.id,
 			"artist": hit.result.primary_artist.name,
 			"photo": hit.result.song_art_image_url
@@ -83,8 +85,11 @@ function geniusFilter(info) {								//info is Genius JSON
 			"photo": hit.result.primary_artist.image_url
 		};
 		
-		if(!x.artists.includes(artist)) x.artists.push(artist);
-
+		occ = false;
+		if(!ids.includes(artist.id)) {
+			x.artists.push(artist);
+			ids.push(artist.id);
+		}
 	}
 
 	return x;

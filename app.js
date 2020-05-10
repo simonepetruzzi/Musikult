@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 // import global variables
-const global = require('../Musikult/modules/global');
+const global = require('./utilities/global');
 
 app.use(express.static('views'));
 app.use(require('./controllers'));

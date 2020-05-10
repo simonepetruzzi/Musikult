@@ -1,7 +1,7 @@
 var express = require("express");
 var request = require("request");
 var querystring = require("querystring");
-var keys = require('../modules/keys');
+var keys = require('../utilities/keys');
 
 var router = express.Router();
 

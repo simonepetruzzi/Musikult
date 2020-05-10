@@ -1,45 +1,60 @@
 body {
-    padding-top: 100px;
+    padding-top: 0px;
 }
 
 #bigcontainer {
     position: relative;
- }
+}
  
- #background {
+#background {
     position: fixed;
 
     overflow: hidden;
     z-index: -1;
 
- }
+}
 
- #smallcontainer {
-    padding-top: 300px;
- }
+#smallcontainer {
+    padding-top: 400px;
+}
 
-
-
- h1 {
+h1 {
 
    padding-right:130px;
-   padding-top: 50px;
+   padding-top: 140px;
    text-align: center;
 
    font-size: 80px;
    color: rgb(194, 160, 10);
- }
- h2 {
+}
+h2 {
      
    padding-left: 30px;
    text-align: center;
 
    font-size: 60px;
    color: rgb(255, 255, 255);
- }
+}
 
 
 .navbar-brand {
     height: 55px;
     line-height: 41px;
+}
+
+.search-box {
+    position: fixed;
+    height: 400px;
+    background-color: white;
+    border: black;
+    overflow-y: auto;
+    padding-top: 15px;
+}
+
+.search-box-container {
+  margin-top: 71px;
+}
+
+#song-text {
+  padding-top: 20px;
 }
