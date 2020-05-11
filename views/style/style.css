@@ -16,6 +16,8 @@ body {
 
 #smallcontainer {
     padding-top: 400px;
+    position: relative;
+    z-index: 500;
 }
 
 h1 {
@@ -37,24 +39,4 @@ h2 {
 }
 
 
-.navbar-brand {
-    height: 55px;
-    line-height: 41px;
-}
 
-.search-box {
-    position: fixed;
-    height: 400px;
-    background-color: white;
-    border: black;
-    overflow-y: auto;
-    padding-top: 15px;
-}
-
-.search-box-container {
-  margin-top: 71px;
-}
-
-#song-text {
-  padding-top: 20px;
-}
