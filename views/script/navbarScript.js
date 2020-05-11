@@ -92,9 +92,9 @@ function show(result) {
 
         $(".tab").click(function() {
             if($(this).attr("type") == "song") 
-                window.location.href = "http://localhost:3000/song?id=" + $(this).attr("id");
+                window.location.href = "http://localhost:3000/songs?id=" + $(this).attr("id");
             else if($(this).attr("type") == "artist")
-                window.location.href = "http://localhost:3000/artist?id=" + $(this).attr("id");
+                window.location.href = "http://localhost:3000/artists?id=" + $(this).attr("id");
         });
     });
     

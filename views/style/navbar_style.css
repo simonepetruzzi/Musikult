@@ -32,6 +32,9 @@
   }
   .ldio-q2cfxhasjgq div { box-sizing: content-box; }
 
+.navbar {
+  background-color: #02111b;
+}
 
 .navbar-brand {
     height: 55px;
@@ -58,4 +61,13 @@
 #song-text {
   padding-top: 20px;
   font-size: 15px;
+}
+
+#search-field {
+  padding-right: 80px;
+
+}
+
+#search-bar {
+  padding-right: 3%;
 }

@@ -1,0 +1,30 @@
+<!-- SONG PAGE TEMPLATE -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head'); -%>
+    <link rel="stylesheet" href="style/song_style.css">
+</head>
+<body class="background-canvas">
+
+    <%- include('partials/navbar'); -%>
+
+    <img src=<%= info.header_image_url %> class="header-image">
+    <div class= "container song-title">
+        <h1 class="display-2 col-9"> <%= info.title %> </h1>
+        <h1 class="display-3 col-9" style = "color:rgba(255, 255, 255, 0.700)"> <%= info.primary_artist.name %> </h1>
+    </div>
+    <div class="song-image-container"></div>
+    <div style="padding-top: 100px">
+        <img src=<%= info.song_art_image_url %> class="song-image"> 
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="script/bootstrap.min.js"> </script>
+
+    <script src="script/script.js"></script>
+
+</body>
+</html>

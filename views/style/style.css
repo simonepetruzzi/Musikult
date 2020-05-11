@@ -1,9 +1,10 @@
-body {
-    padding-top: 0px;
-}
 
 #bigcontainer {
     position: relative;
+}
+
+.background-canvas {
+    background-color: #0a2638;
 }
  
 #background {
@@ -20,23 +21,13 @@ body {
     z-index: 500;
 }
 
-h1 {
+.page-title {
+    padding-top: 140px;
 
-   padding-right:130px;
-   padding-top: 140px;
-   text-align: center;
-
-   font-size: 80px;
-   color: rgb(194, 160, 10);
+    text-align: center;
+    padding-right: 25%;
 }
-h2 {
-     
-   padding-left: 30px;
-   text-align: center;
 
-   font-size: 60px;
-   color: rgb(255, 255, 255);
-}
 
 
 

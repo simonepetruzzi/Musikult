@@ -10,20 +10,19 @@ const spotify_client_secret = keys.getSpotifyClientSecret();
 
 router.get('/', function(req, res) {
   
-	// your application requests authorization
+	// requests authorization
 	var scope = 'user-read-private user-read-email';
-	res.redirect('https://accounts.spotify.com/authorize?' +
-	  querystring.stringify({
+	res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
 		response_type: 'code',
 		client_id: spotify_client_id,
 		scope: scope,
 		redirect_uri: "http://localhost:3000/spotifyAuth/callback"
-	  }));
-  });
+	}));
+});
 
 router.get('/callback', function(req, res) {
 
-	// application requests refresh and access tokens
+	// requests refresh and access tokens
 
 	var authOptions = {
 		url: 'https://accounts.spotify.com/api/token',

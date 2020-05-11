@@ -1,0 +1,29 @@
+.navbar {
+    background-color: rgb(255, 255, 255, 0);
+}
+
+.header-image {
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    margin-top: -20%;
+    margin-bottom: -20%;
+}
+
+.song-title {
+    position: absolute;
+    z-index: 10;
+    padding-top: 100px;
+    color: rgba(255, 255, 255, 0.950);
+}
+
+.song-image {
+    
+    margin-left: 80%;
+    width: 15%;
+    height: 15%; 
+    border: 2px solid #ddd;
+    border-radius: 8px;
+
+}
+

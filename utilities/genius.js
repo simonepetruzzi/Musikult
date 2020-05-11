@@ -10,13 +10,36 @@ const client_id = keys.getGeniusClientId();
 const client_secret = keys.getGeniusClientSecret();
 const access_token = keys.getGeniusAccessToken();
 
-const API = "https://api.genius.com/search?";
+const API = "https://api.genius.com";
+
+//Genius getter for a specific song
+exports.getSongInfo = function(id, func) {
+
+	var options = {
+		url: API + "/songs/" + id,          	/* https://api.genius.com/songs/:id */
+		headers: {
+			'Authorization' : 'Bearer ' + access_token
+		}
+	};
+
+	//request to genius API
+	request(options, function callback(error, response, body) {
+
+		if (!error && response.statusCode == 200) 
+			func(JSON.parse(body));
+
+		else 
+			console.log(error);
+	});
+
+};
+
 
 //Genius search
 exports.geniusSearch = function(searchquery, func) {
 
-    var options = {
-        url: API + querystring.stringify({ q: searchquery }),
+    var options = {								/* https://api.genius.com/search?q=:query */
+        url: API + "/search?" + querystring.stringify({ q: searchquery }), 
         headers: {
             'Authorization': 'Bearer ' + access_token
          }
