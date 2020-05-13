@@ -11,7 +11,7 @@ const spotify_client_secret = keys.getSpotifyClientSecret();
 router.get('/', function(req, res) {
   
 	// requests authorization
-	var scope = 'user-read-private user-read-email';
+	var scope = 'user-read-private user-read-email user-top-read';
 	res.redirect('https://accounts.spotify.com/authorize?' + querystring.stringify({
 		response_type: 'code',
 		client_id: spotify_client_id,
@@ -62,7 +62,7 @@ router.get('/callback', function(req, res) {
 				console.log(body);
 			});
   
-			res.redirect("http://localhost:3000" + "?access_token=%22" + access_token + "%22");
+			res.redirect("http://localhost:3000" + "?access_token=" + access_token);
 		  	// we can also pass the token to the browser to make requests from there
 		  	/*res.redirect('/#' +
 			querystring.stringify({

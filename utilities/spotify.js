@@ -1,5 +1,7 @@
 const express = require('express');
 const request = require('request');
+const spotify = require('../utilities/spotify');
+
 
 
 const APIt = "https://api.spotify.com/v1/me/top/tracks";
