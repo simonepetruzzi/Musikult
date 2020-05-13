@@ -2,6 +2,7 @@ const express = require("express");
 const fs = require("fs"); //permette di leggere il file system 
 const path = require('path'); //fornisce metodi per lavorare su percorsi del file system 
 const ws = require('../utilities/ws');
+const spotify = require('../utilities/spotify');
 
 const router = express.Router();
 
@@ -14,8 +15,13 @@ router.get("/",(req,res) => {
 	if(!token) 
 		res.render('home', { isLogged: false });
 	
-	else 
-		res.render('home', { isLogged: true });
+	else{
+		spotify.spotifyIDArtists(token,function(obj){
+			spotify.spotifyIDTracks(token,function(obj1){
+				res.render('home', { isLogged: true , artist: obj,tracks: obj1});
+			});
+		});
+	}
 
 });
 
