@@ -1,0 +1,23 @@
+<!-- SONG PAGE TEMPLATE -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include('partials/head'); -%>
+    <link rel="stylesheet" href="style/song_style.css">
+</head>
+
+<body class="background-canvas">
+
+    <%- include('partials/navbar'); -%>
+
+    <img src=<%= info.header_image_url %> class="header-image">
+    
+    <div class="row">
+        <div class = "col-12">
+            <p class = "lead lyrics"> <%= lyrics %>  </p> 
+        </div>
+    </div>    
+
+</body>
