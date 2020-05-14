@@ -26,8 +26,9 @@ exports.getSongInfo = function(title, artist, func) {
 	request(options, function callback(error, response, body) {
 
         if (!error && response.statusCode == 200) {
-            if(JSON.parse(body).result[0].haslyrics)
-                getLyrics((JSON.parse(body)).result[0].api_lyrics, func);
+            var info = JSON.parse(body).result[0];
+            if(info && info.haslyrics)
+                getLyrics(info.api_lyrics, func);
             else 
                 func(null);
         }
@@ -53,7 +54,9 @@ function getLyrics(lyrics_api, func) {
     request(options, function callback(error, response, body) {
 
         if (!error && response.statusCode == 200) {
-            func((JSON.parse(body)).result.lyrics);
+            filterLyrics((JSON.parse(body)).result.lyrics, function(lyrics) {
+                func(lyrics);
+            })
         }
 
 		else {
@@ -61,4 +64,16 @@ function getLyrics(lyrics_api, func) {
             func(null); 
         }
 	});
+}
+
+function filterLyrics(string, func) {
+
+    var filtered = [""];
+    var index = 0;
+    for(var i = 0; i < string.length; i++) {
+        if(string[i] == '\n') filtered[++index] = "";
+        else filtered[index] += string[i];
+    }
+
+    func(filtered);
 }

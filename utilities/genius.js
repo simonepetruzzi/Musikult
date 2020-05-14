@@ -25,8 +25,9 @@ exports.getSongInfo = function(id, func) {
 	//request to genius API
 	request(options, function callback(error, response, body) {
 
-		if (!error && response.statusCode == 200) 
-			func(JSON.parse(body));
+		if (!error && response.statusCode == 200) {
+			descriptionCleaning(JSON.parse(body).response.song, func);
+		}
 
 		else 
 			console.log(error);
@@ -34,6 +35,42 @@ exports.getSongInfo = function(id, func) {
 
 };
 
+// This function cleans the result of the API call as Genius returns a description of the track
+// that is not easy to use in our scope
+function descriptionCleaning(info, func) {
+	var description = descriptionCleaningRecursive(info.description.dom);
+	description = filterDescription(description);
+
+	info.description = description;
+	func(info);
+}
+
+function descriptionCleaningRecursive(element) {
+	if(element.tag) {
+
+		var desc = "";
+		element.children.forEach(children => {
+			desc += descriptionCleaningRecursive(children, false);
+			if(element.tag == 'root') desc += '\n';
+		}); 
+		return desc;
+	}
+	else {
+		return element;
+	}
+}
+
+function filterDescription(string) {
+
+    var filtered = [""];
+    var index = 0;
+    for(var i = 0; i < string.length; i++) {
+        if(string[i] == '\n') filtered[++index] = "";
+        else filtered[index] += string[i];
+    }
+
+    return filtered;
+}
 
 //Genius search
 exports.geniusSearch = function(searchquery, func) {

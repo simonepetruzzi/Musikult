@@ -26,6 +26,6 @@ router.get("/",(req,res) => {
 });
 
 router.use("/spotifyAuth", require("./spotifyAuth"));
-//router.use("/songs", require("./songs"));
+router.use("/songs", require("./songs"));
 
 module.exports = router;

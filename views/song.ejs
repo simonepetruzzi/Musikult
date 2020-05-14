@@ -10,8 +10,10 @@
 
     <%- include('partials/navbar'); -%>
 
-    <div class="container-fluid">
-        <div class="row justify-content-start">
+    <img src=<%= info.header_image_url %> class="header-image">
+
+    <div class="container-fluid" style="position: relative;">
+        <div class="row justify-content-start" style="padding-top: 100px;">
 
             <div class= "container song-title col-8">
                 <h1 class="display-2" style="color: rgba(255, 255, 255, 0.950)"> <%= info.title %> </h1>
@@ -32,13 +34,60 @@
 
     </div>
 
-    <img src=<%= info.header_image_url %> class="header-image">
-    <p class = "lead lyrics"> <%= lyrics %>  </p>
+    <div class="container mid-panel">
+        <div class="row">
+            <div class = "container-fluid col-md-7">
+                <% if (lyrics) { %>
+                    <p class = "lead lyrics"> <% lyrics.forEach(line => { %>
+                        <%= "" + line %> <br>
+                    <% }) %> </p>
+                <% } else { %>
+                    <p class = "not-lyrics"> Sorry, we can't find lyrics for this track :( </p>
+                <% } %>
+
+                <div class ="producers">
+                    <% if (info.producer_artists[0]) { %>
+                        <p class="not-lyrics"> Produced by: 
+                            <% info.producer_artists.forEach(artist => { %>
+                                <%= artist.name %>  
+                            <% }) %>
+                        </p>
+                    <% } %> 
+                </div>
+
+                <div class="writers">
+                    <% if (info.writer_artists[0]) { %>
+                        <p class="not-lyrics"> Written by: 
+                            <% info.writer_artists.forEach(artist => { %>
+                                <%= artist.name %>
+                            <% }) %>
+                        </p>
+                    <% } %> 
+                </div>
+                
+            </div>
+            
+            <div class="container-fluid col-md-5">
+                <div id="player" video= <% info.media.forEach(media => { %>
+                    <% if (media.provider == 'youtube') { %>
+                        <%= media.url %>
+                    <% } %>
+                <% }) %> ></div>
+
+                <p class = "description"> <% info.description.forEach(paragraph => { %>
+                    <%= "" + paragraph %> <br>
+                <% }) %> </p>
+
+            </div>
+        </div>
+        </div>
+        
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="script/bootstrap.min.js"> </script>
 
     <script src="script/script.js"></script>
+    <script src="script/player.js"></script>
 
 </body>
 </html>

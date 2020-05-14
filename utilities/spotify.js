@@ -1,11 +1,9 @@
 const express = require('express');
 const request = require('request');
-const spotify = require('../utilities/spotify');
-
-
 
 const APIt = "https://api.spotify.com/v1/me/top/tracks";
 const APIa = "https://api.spotify.com/v1/me/top/artists";
+
 exports.spotifyIDTracks=function(token,func){
     var options = {
         url: APIt,
@@ -14,7 +12,7 @@ exports.spotifyIDTracks=function(token,func){
         }
     };
     
-    request(options, function callback(error, response, body) {
+    request.get(options, function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
             var x = tracksFilter(JSON.parse(body));
             func(x);
@@ -30,16 +28,17 @@ exports.spotifyIDArtists=function(token,func){
         headers : {
             'Authorization': 'Bearer ' + token
         }
-    };  
-        
-    request(options, function callback(error, response, body) {		
+    };
+    request.get(options, function callback(error, response, body) {		
+
         if (!error && response.statusCode == 200) {
             var y = artistFilter(JSON.parse(body));
             func(y);
         }
 
-        else 
+        else {
             console.log(error);
+        }
             
     });
 };

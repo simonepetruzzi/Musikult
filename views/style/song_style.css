@@ -4,9 +4,10 @@
 
 .header-image {
 
+    position: absolute;
+    object-fit: cover;
     width: 100%;
-   /* margin-top: -20%;
-    margin-bottom: -20%;*/
+    height: 500px;
 }
 
 .song-image {
@@ -24,4 +25,23 @@
 .lyrics {
     color: white;
 }
+
+.not-lyrics {
+    color: rgba(255, 255, 255, 0.678);
+    font-size: 16px;
+}
+
+.mid-panel {
+    padding-top: 270px;
+}
+
+.producers {
+    padding-top: 30px;
+}
+
+.description {
+    color: rgba(255, 255, 255, 0.75);
+    padding-top: 15px;
+}
+
 
