@@ -1,0 +1,89 @@
+<!-- ARTIST PAGE TEMPLATE -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/head'); -%>
+    <link rel="stylesheet" href="style/song_style.css">
+</head>
+<body class="background-canvas">
+
+    <%- include('partials/navbar'); -%>
+
+    <img src=<%= info.artist.header_image_url %> class="header-image">
+
+    <div class="container-fluid" style="position: relative;">
+        <div class="row justify-content-start" style="padding-top: 100px;">
+
+            <div class= "container song-title col-8">
+                <h1 class="display-2" style="color: rgba(255, 255, 255, 0.950)"> <%= info.artist.name %> </h1>
+            </div>
+            
+            <div class="col-2">
+                <img src=<%= info.artist.image_url %> class="song-image"> 
+            </div>
+
+            <div class="col-1"></div>
+    
+        </div>
+
+    </div>
+
+    <div class="container mid-panel">
+        <div class="row">
+            <div class = "container-fluid col-md-7">
+
+                <h1 class="display-4" style="text-align: center; 
+                                             color: rgba(231, 231, 231, 0.699);
+                                             padding-bottom: 30px;"> 
+                    Best Songs 
+                </h1>
+                
+                <p> <% info.songs.forEach(song => { %>
+                    <div class="container"> 
+                        <div class="row song-div" id=<%= song.id %> >
+                            <img src= <%= song.song_art_image_thumbnail_url%> class="song-thumbnail col-2">
+                
+                            <p class="song-title col-10"> 
+                                <%= song.title_with_featured %>   
+                            </p>
+                        </div>
+                        <hr style="color:rgba(121, 121, 121, 0.651)">
+                    </div>
+                <% }) %> </p>
+                
+            </div>
+            
+            <div class="container-fluid col-md-5">
+
+                <p class = "description"> <% info.artist.description.forEach(paragraph => { %>
+                    <%= "" + paragraph %> <br>
+                <% }) %> </p>
+
+            </div>
+        </div>
+    </div>
+        
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="script/bootstrap.min.js"> </script>
+
+    <script> 
+        $(document).ready(function(){
+        $(".song-div").mouseenter(function(){
+            $(this).css("background-color", "rgba(143, 143, 143, 0.199)");
+        });
+        $(".song-div").mouseleave(function(){
+            $(this).css("background-color", "rgba(143, 143, 143, 0)");
+        });
+
+        $(".song-div").click(function() {
+            window.location.href = "http://localhost:3000/songs?id=" + $(this).attr("id");
+        });
+    });
+    </script>
+
+</body>
+</html>
+
+

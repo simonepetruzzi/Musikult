@@ -18,7 +18,7 @@
             <div class= "container song-title col-8">
                 <h1 class="display-2" style="color: rgba(255, 255, 255, 0.950)"> <%= info.title %> </h1>
                 <h1 class="display-3" >
-                     <a style = "color:rgba(255, 255, 255, 0.700)" href="http://localhost:3000/artists/<%= info.primary_artist.id %>"> 
+                     <a style = "color:rgba(255, 255, 255, 0.700)" href="http://localhost:3000/artists?id=<%= info.primary_artist.id %>"> 
                         <%= info.primary_artist.name %> 
                     </a>
                 </h1>
@@ -80,7 +80,7 @@
 
             </div>
         </div>
-        </div>
+    </div>
         
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

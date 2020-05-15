@@ -12,7 +12,7 @@ const access_token = keys.getGeniusAccessToken();
 
 const API = "https://api.genius.com";
 
-//Genius getter for a specific song
+// Genius getter for a specific song
 exports.getSongInfo = function(id, func) {
 
 	var options = {
@@ -22,7 +22,7 @@ exports.getSongInfo = function(id, func) {
 		}
 	};
 
-	//request to genius API
+	// request to genius API
 	request(options, function callback(error, response, body) {
 
 		if (!error && response.statusCode == 200) {
@@ -35,18 +35,133 @@ exports.getSongInfo = function(id, func) {
 
 };
 
+// Genius getter for a specific artist
+exports.getArtistInfo = function(id, func) {
+
+	var options = {
+		url: API + "/artists/" + id,          	/* https://api.genius.com/artists/:id */
+		headers: {
+			'Authorization' : 'Bearer ' + access_token
+		}
+	};
+
+	//request to genius API to get artist informations
+	request(options, function callback(error, response, body) {
+
+		if (!error && response.statusCode == 200) {
+			descriptionCleaning(JSON.parse(body).response.artist, function(artist_info) {
+				getArtistSongs(id, function(songs_info) {
+					func({ artist: artist_info, songs: songs_info });
+				})
+			});
+		}
+
+		else 
+			console.log(error);
+	});
+
+}
+
+// Genius getter for a specific artist popular songs
+getArtistSongs = function(id, func) {
+/*
+	var ok = false;
+	var new_songs = [];
+	var index = 0;
+	var page = 1;
+	while(!ok) {
+
+		var options = {						// https://api.genius.com/songs/:id/songs 
+			url: API + "/artists/" + id + "/songs?sort=popularity&page=" + page, 
+			headers: {
+				'Authorization' : 'Bearer ' + access_token
+			}
+		};
+	
+		// request to genius API
+		request(options, function callback(error, response, body) {
+	
+			if (!error && response.statusCode == 200) {
+
+				if(JSON.parse(body).response.next_page == null) {
+					ok = true;
+					break;
+				}
+				
+				var songs = JSON.parse(body).response.songs;
+
+				songs.forEach(song => {
+					if(song.primary_artist.id == id) new_songs[index++] = song;
+					if(index == 9) {
+						ok = true;
+						break;
+					}
+				});
+				page++;
+			}
+	
+			else 
+				console.log(error);
+		});
+
+		func(new_songs);
+	}
+*/
+	var options = {						// https://api.genius.com/songs/:id/songs 
+		url: API + "/artists/" + id + "/songs?sort=popularity&per_page=50", 
+		headers: {
+			'Authorization' : 'Bearer ' + access_token
+		}
+	};
+
+	// request to genius API
+	request(options, function callback(error, response, body) {
+
+		if (!error && response.statusCode == 200) {
+			
+			var new_songs = [];
+			var index = 0;
+			var songs = JSON.parse(body).response.songs;
+
+			for(var i = 0; i < songs.length; i++) {
+				if(songs[i].primary_artist.id == id) {
+					new_songs.push(songs[i]);
+					index++;
+				}
+				if(index == 10) {
+					break;
+				}
+			}
+
+			func(new_songs);
+
+		}
+
+		else 
+			console.log(error);
+	});
+};
+
 // This function cleans the result of the API call as Genius returns a description of the track
 // that is not easy to use in our scope
 function descriptionCleaning(info, func) {
-	var description = descriptionCleaningRecursive(info.description.dom);
-	description = filterDescription(description);
+	if(info.description.dom) {
+		var description = descriptionCleaningRecursive(info.description.dom);
+		description = filterDescription(description);
 
-	info.description = description;
+		info.description = description;
+	}
+	else {info.description = ["No description avalilable"]}
+
 	func(info);
 }
 
+// Recursive function to clean all the elements of the dom
 function descriptionCleaningRecursive(element) {
-	if(element.tag) {
+	if(element.tag == 'br') {
+		return "\n";
+	}
+	else if(element.tag) {
 
 		var desc = "";
 		element.children.forEach(children => {
@@ -60,6 +175,7 @@ function descriptionCleaningRecursive(element) {
 	}
 }
 
+// Puts the cleaned description in a list to be used in a easier way
 function filterDescription(string) {
 
     var filtered = [""];
