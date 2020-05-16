@@ -63,6 +63,14 @@
             </div>
         </div>
     </div>
+
+    <div class = "container bottom-container">
+        <div class="row flex-row flex-nowrap">
+            <% related_artists.forEach(artist => { %>
+                <img src= <%= artist.images[0].url %> >
+            <% }) %>
+        </div>
+    </div>
         
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>

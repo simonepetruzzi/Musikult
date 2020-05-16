@@ -91,15 +91,24 @@ function show(result) {
         });
 
         $(".tab").click(function() {
-            if($(this).attr("type") == "song") 
-                window.location.href = "http://localhost:3000/songs?id=" + $(this).attr("id");
-            else if($(this).attr("type") == "artist")
-                window.location.href = "http://localhost:3000/artists?id=" + $(this).attr("id");
+            if($(this).attr("type") == "song") {
+                if(token) next_url = "http://localhost:3000/songs?access_token="+ token +"&id=" + $(this).attr("id");
+                else next_url = "http://localhost:3000/songs?id=" + $(this).attr("id");
+                window.location.href = next_url;
+            }
+            else if($(this).attr("type") == "artist") {
+                if(token) next_url = "http://localhost:3000/artists?access_token="+ token +"&id=" + $(this).attr("id");
+                else next_url = "http://localhost:3000/artists?id=" + $(this).attr("id");
+                window.location.href = next_url;
+            }
         });
     });
     
-    
 }
+
+var url = new URL(window.location.href);
+var token = url.searchParams.get("access_token");
+var next_url = "";
 
 var searchBox = $(".search-box");
 var spinner = $("<div class='row justify-content-center' style='padding-top: 160px;'>" +

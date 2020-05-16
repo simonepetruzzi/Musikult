@@ -158,11 +158,10 @@ function descriptionCleaning(info, func) {
 
 // Recursive function to clean all the elements of the dom
 function descriptionCleaningRecursive(element) {
-	if(element.tag == 'br') {
+	if(element.tag == 'br' || element.tag == 'img') {
 		return "\n";
 	}
 	else if(element.tag) {
-
 		var desc = "";
 		element.children.forEach(children => {
 			desc += descriptionCleaningRecursive(children, false);

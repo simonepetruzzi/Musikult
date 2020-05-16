@@ -4,6 +4,48 @@ const request = require('request');
 const APIt = "https://api.spotify.com/v1/me/top/tracks";
 const APIa = "https://api.spotify.com/v1/me/top/artists";
 
+exports.getRelatedArtists = function(token, artist, func) {
+
+    search(token, artist, function(id) {
+
+        var options = {
+            url: "https://api.spotify.com/v1/artists/" + id + "/related-artists",
+            headers : {
+                'Authorization': 'Bearer ' + token
+            }
+        };
+        
+        request.get(options, function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                func(JSON.parse(body).artists);
+            }
+    
+            else 
+                console.log(error);
+        });
+    })
+}
+
+function search(token, artist, func) {
+
+    var options = {
+        url: "https://api.spotify.com/v1/search?type=artist&q="+artist,
+        headers : {
+            'Authorization': 'Bearer ' + token
+        }
+    };
+    
+    request.get(options, function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            func(JSON.parse(body).artists.items[0].id);
+        }
+
+        else 
+            console.log(error);
+    });
+
+}
+
 exports.spotifyIDTracks=function(token,func){
     var options = {
         url: APIt,
