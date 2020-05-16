@@ -76,7 +76,7 @@
         </div>
         <div class = "container bottom-container">
             <div class="row container-fluid">
-                <div class="row flex-row flex-nowrap related-artists-row" style="position: relative;">
+                <div class="row flex-row flex-nowrap related-artists-row" style="position: relative; left:33px" number="<%= related_artists.length %> ">
                     <% related_artists.forEach(artist => { %>
                         <div class="related-artist" id= <%= artist.id %> >
                             <img src= <%= artist.images[0].url %> class="related-artist-img">
@@ -86,6 +86,8 @@
                 </div>
             </div>
         </div>
+
+        <div style="height: 200px"></div>
      
     <% } %> 
     
@@ -97,7 +99,7 @@
     var url = new URL(window.location.href);
     var token = url.searchParams.get("access_token");
 
-        $(document).ready(function(){
+        $(document).ready(function() {
             $(".song-div").mouseenter(function(){
                 $(this).css("background-color", "rgba(143, 143, 143, 0.199)");
             });
@@ -110,23 +112,58 @@
             });
         });
 
-        var n=0;
+        var body = document.body,
+            html = document.documentElement;
+        var width = Math.max( body.offsetWidth, 
+                              html.clientWidth, html.offsetWidth);
+
+        var n = 33;
+        var maxn = (parseInt($(".flex-row").attr("number")))*300 - width + 300;
+
         $(document).ready(function() {
             $(".left").click(function() {
-                n += 600;
-                $(".related-artists-row").animate({
-                    left: n + "px",
-                });
-                n++;
+                if(n < 33) {
+                    n += 600;
+                    $(".related-artists-row").animate({
+                        left: n + "px",
+                    });
+                }
             });
             $(".right").click(function() {
-                n -= 600;
-                $(".related-artists-row").animate({
-                    left: n + "px",
-                });
+                if(n > -maxn + 33) {
+                    n -= 600;
+                    $(".related-artists-row").animate({
+                        left: n + "px",
+                    });
+                }
             });
 
-            $(".related-artist") .mouseenter(function() {
+            $(".left").mouseenter(function() {
+                $(this).css("background-color", "rgba(128, 128, 128, 0.750)");
+                $(this).children("p").css("font-size", "34px");
+                $(this).children("p").css("padding-top", "60px");
+                $(this).children("p").css("color", "rgba(80, 80, 80, 0.8)");
+            });
+            $(".right").mouseenter(function() {
+                $(this).css("background-color", "rgba(128, 128, 128, 0.750)");
+                $(this).children("p").css("font-size", "34px");
+                $(this).children("p").css("padding-top", "60px");
+                $(this).children("p").css("color", "rgba(80, 80, 80, 0.8)");
+            });
+            $(".left").mouseleave(function() {
+                $(this).css("background-color", "rgba(128, 128, 128, 0.550)");
+                $(this).children("p").css("font-size", "30px");
+                $(this).children("p").css("padding-top", "62px");
+                $(this).children("p").css("color", "rgba(116, 116, 116, 0.6)");
+            });
+            $(".right").mouseleave(function() {
+                $(this).css("background-color", "rgba(128, 128, 128, 0.550)");
+                $(this).children("p").css("font-size", "30px");
+                $(this).children("p").css("padding-top", "62px");
+                $(this).children("p").css("color", "rgba(116, 116, 116, 0.6)");
+            });
+
+            $(".related-artist").mouseenter(function() {
                 $(this).children(".related-artist-img").css({
                     filter: "brightness(50%)",
                 })

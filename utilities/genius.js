@@ -238,8 +238,5 @@ exports.spotifyToGeniusArtistId = function(token, id, func) {
 				console.log(error);
 	
 		});  
-
 	});
-
-
 }
