@@ -17,7 +17,7 @@ const API = "https://api.genius.com";
 exports.getSongInfo = function(id, func) {
 
 	var options = {
-		url: API + "/songs/" + id,          	/* https://api.genius.com/songs/:id */
+		url: API + "/songs/" + id + "?text_format=plain",    /* https://api.genius.com/songs/:id */
 		headers: {
 			'Authorization' : 'Bearer ' + access_token
 		}
@@ -40,7 +40,7 @@ exports.getSongInfo = function(id, func) {
 exports.getArtistInfo = function(id, func) {
 
 	var options = {
-		url: API + "/artists/" + id,          	/* https://api.genius.com/artists/:id */
+		url: API + "/artists/" + id + "?text_format=plain",  /* https://api.genius.com/artists/:id */
 		headers: {
 			'Authorization' : 'Bearer ' + access_token
 		}
@@ -104,17 +104,17 @@ getArtistSongs = function(id, func) {
 // This function cleans the result of the API call as Genius returns a description of the track
 // that is not easy to use in our scope
 function descriptionCleaning(info, func) {
-	if(info.description.dom) {
-		var description = descriptionCleaningRecursive(info.description.dom);
-		description = filterDescription(description);
+	if(info.description.plain != '?') {
+		//var description = descriptionCleaningRecursive(info.description.dom);  //not used
+		info.description = filterDescription(info.description.plain);
 
-		info.description = description;
 	}
-	else {info.description = ["No description avalilable"]}
+	else {info.description = ["No description available"]}
 
 	func(info);
 }
 
+//NOT USED: REPLACED BY THE USAGE OF THE QUERY PARAMETER TEXT_FORMAT IN SEARCH
 // Recursive function to clean all the elements of the dom
 function descriptionCleaningRecursive(element) {
 	if(element.tag == 'br' || element.tag == 'img' || element.tag == 'hr') {
