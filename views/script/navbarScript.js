@@ -49,22 +49,26 @@ function searchEvent(id) {
 
     if(searchquery == "") hideBox();
     else {
-        searchBox.empty();
-        searchBox.append(spinner);
+        if(!loading) {
+            searchBox.empty();
+            searchBox.append(spinner);
+            loading = true;
+        }
         showBox();
 
         setTimeout(() => {
             if(request_id == id) {
-                searchBox.empty();
                 socket.send(searchquery);  //send data to server only if no other researches are made
                                            //in 1 second
-            } 
-                                    
+            }                                     
         }, 1000);                        
     }
 }
 
 function show(result) {
+
+    loading = false;
+    searchBox.empty();
 
     for(i = 0; i < result.songs.length; i++) {
         var search_element = $("<div class='row tab song' type='song' id='" + result.songs[i].id + "'></div>"); 
@@ -114,15 +118,17 @@ var searchBox = $(".search-box");
 var spinner = $("<div class='row justify-content-center' style='padding-top: 160px;'>" +
                 "<div class='loading-spinner'><div class='ldio-q2cfxhasjgq'>" +
                 "<div></div></div></div></div>");
+var loading = false;
 
 searchBox.hide();
 
 function hideBox() {
     if(searchBox.is(":visible")) {
+        loading = false;
         searchBox.empty();
         searchBox.css({top: '0px'});
         searchBox.animate({
-            opacity: 0.25,
+            
             top: '-=400px'
             //height: "toggle"
         }, 400, function() {
@@ -135,7 +141,7 @@ function showBox() {
         searchBox.css({top: '-400px'});
         searchBox.show();
         searchBox.animate({
-            opacity: 1,
+            
             top: '+=400px'
         }, 400);
     }
