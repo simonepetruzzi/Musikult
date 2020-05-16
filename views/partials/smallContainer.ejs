@@ -1,129 +1,62 @@
 <div id="smallcontainer">
-
-   	<div class="container" style="background-color: rgb(0,0,0,0)">
-   		<div class ="row">
-        	<div class="container" id="YFA">
-     			<h3 class="artist"> Your favourite artists</h3>
-        	</div>
-        	<hr>
-        	<hr>
-        	<div class="col-sm-4">
-        	<div class="card" style="width: 18rem;" id ="card1">
-				<img src=<%= artist.artisti[0].image.url %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= artist.artisti[0].name %></h5>
-				
+	
+	<div class="container" style="background-color: #0a2638">
+		<h1 class="display-4" style="color: rgba(255, 255, 255, 0.9)"> Your favourite artists </h1>
+		<hr>
+		<div class="row">
+		<% for( let i = 0; i < 3; i++ ) { %>
+				<div class="col-sm-4">
+					<div class="card" style="width: 18rem;" >
+						<img src=<%= artist.artisti[i].image.url %> class="card1">
+						<div class="card-body">
+							<h5 class="card-title"><%= artist.artisti[i].name %></h5>
+						</div>
+					</div>
 				</div>
-			</div>
-			</div>
-			<div class="col-sm-4">
-			<div class="card" style="width: 18rem;" id ="card2">
-				<img src=<%= artist.artisti[1].image.url %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= artist.artisti[1].name %></h5>
-				</div>
-			</div>
-			</div>
-			<div class="col-sm-4">
-			<div class="card" style="width: 18rem;" id ="card3">
-				<img src=<%= artist.artisti[2].image.url %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= artist.artisti[2].name %></h5>
-					
-				</div>
-			</div>
-			</div>
-    	</div>
-    	<hr>
-    	<div class="row" id="row2">
-			<div class="col-sm-4">
-        	<div class="card" style="width: 18rem;" id ="card1">
-				<img src=<%= artist.artisti[3].image.url %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= artist.artisti[3].name %></h5>
-					
-				</div>
-			</div>
-			</div>
-			<div class="col-sm-4">
-			<div class="card" style="width: 18rem;" id ="card2">
-				<img src=<%= artist.artisti[4].image.url %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= artist.artisti[4].name %></h5>
-				</div>
-			</div>
-			</div>
-			<div class="col-sm-4">
-			<div class="card" style="width: 18rem;" id ="card3">
-				<img src=<%= artist.artisti[5].image.url %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= artist.artisti[5].name %></h5>
-				</div>
-			</div>
-			</div>
-    	</div>
-    	
-    	<hr>
-    	
-    	<div class ="row">
-        	<div class="container" id="YFA">
-     			<h3 class="artist"> Your favourite song</h3>
-        	</div>
-        	
-        	<hr>
-        	<div class="col-sm-4">
-        	<div class="card" style="width: 18rem;" id ="card1">
-				<img src=<%= tracks.tracks[0].image %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= tracks.tracks[0].name %></h5>
-				</div>
-			</div>
-			</div>
-			<div class="col-sm-4">
-			<div class="card" style="width: 18rem;" id ="card2">
-				<img src=<%= tracks.tracks[1].image %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= tracks.tracks[1].name %></h5>
-				</div>
-			</div>
-			</div>
-			<div class="col-sm-4">
-			<div class="card" style="width: 18rem;" id ="card3">
-				<img src=<%= tracks.tracks[2].image %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= tracks.tracks[2].name %></h5>
-				</div>
-			</div>
-			</div>
-    	</div>
-    	<hr>
-    	<div class="row" id="row2">
-			<div class="col-sm-4">
-        	<div class="card" style="width: 18rem;" id ="card1">
-				<img src=<%= tracks.tracks[3].image %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= tracks.tracks[3].name %></h5>
-				</div>
-			</div>
-			</div>
-			<div class="col-sm-4">
-			<div class="card" style="width: 18rem;" id ="card2">
-				<img src=<%= tracks.tracks[4].image %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= tracks.tracks[4].name %></h5>
-				</div>
-			</div>
-			</div>
-			<div class="col-sm-4">
-			<div class="card" style="width: 18rem;" id ="card3">
-				<img src=<%= tracks.tracks[5].image %> class="card-img-top" alt="...">
-				<div class="card-body">
-					<h5 class="card-title"><%= tracks.tracks[5].name %></h5>
-				</div>
-			</div>
-			</div>
-    	</div>
-    	
+		<% } %>
+		</div>
+		<hr>
+		<div class="row">
+			<% for( let i = 3; i < 6; i++ ) { %>
+					<div class="col-sm-4">
+						<div class="card" style="width: 18rem;" >
+							<img src=<%= artist.artisti[i].image.url %> class="card1">
+							<div class="card-body">
+								<h5 class="card-title"><%= artist.artisti[i].name %></h5>
+							</div>
+						</div>
+					</div>
+			<% } %>
+		</div>
+		<hr>
+		<hr>
+		<hr>
+		<h1 class="display-4" style="color: rgba(255, 255, 255, 0.9)"> Your favourite songs </h1>
+		<hr>
+    	<div class="row">
+			<% for( let i = 0; i < 3; i++ ) { %>
+					<div class="col-sm-4">
+						<div class="card" style="width: 18rem;" >
+							<img src=<%= tracks.tracks[i].image %> class="card1">
+							<div class="card-body">
+								<h5 class="card-title"><%= tracks.tracks[i].name %></h5>
+							</div>
+						</div>
+					</div>
+			<% } %>
+		</div>
+		<hr>
+		<div class="row">
+			<% for( let i = 3; i < 6; i++ ) { %>
+					<div class="col-sm-4">
+						<div class="card" style="width: 18rem;" >
+							<img src=<%= tracks.tracks[i].image %> class="card1">
+							<div class="card-body">
+								<h5 class="card-title"><%= tracks.tracks[i].name %></h5>
+							</div>
+						</div>
+					</div>
+			<% } %>
+		</div>
     </div>
-
 </div>
