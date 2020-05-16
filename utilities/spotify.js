@@ -4,7 +4,26 @@ const request = require('request');
 const APIt = "https://api.spotify.com/v1/me/top/tracks";
 const APIa = "https://api.spotify.com/v1/me/top/artists";
 
-exports.getRelatedArtists = function(token, artist, func) {
+exports.getRelatedArtistsWithId = function(token, id, func) {
+
+    var options = {
+        url: "https://api.spotify.com/v1/artists/" + id + "/related-artists",
+        headers : {
+            'Authorization': 'Bearer ' + token
+        }
+    };
+    
+    request.get(options, function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            func(JSON.parse(body).artists);
+        }
+
+        else 
+            console.log(error);
+    });
+}
+
+exports.getRelatedArtistsWithoutId = function(token, artist, func) {
 
     search(token, artist, function(id) {
 
@@ -24,6 +43,33 @@ exports.getRelatedArtists = function(token, artist, func) {
                 console.log(error);
         });
     })
+}
+
+exports.getBestSong = function(token, id, func) {
+
+    var options = {
+        url: "https://api.spotify.com/v1/artists/" + id + "/top-tracks?country=US",
+        headers : {
+            'Authorization': 'Bearer ' + token
+        }
+    };
+    
+    request.get(options, function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+
+            var tracks = JSON.parse(body).tracks;
+            for(var i = 0; i < tracks.length; i++) {
+                if(tracks[i].artists[0].id == id) {
+                    func(tracks[i].name, tracks[i].artists[0].name);
+                    break;
+                }
+            };
+        }
+
+        else 
+            console.log(error);
+    });
+    
 }
 
 function search(token, artist, func) {

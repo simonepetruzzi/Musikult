@@ -1,6 +1,7 @@
 const express = require('express');
 const querystring = require('querystring');
 const request = require('request');
+const spotify = require('./spotify');
 
 const keys = require('./keys');
 
@@ -64,49 +65,7 @@ exports.getArtistInfo = function(id, func) {
 
 // Genius getter for a specific artist popular songs
 getArtistSongs = function(id, func) {
-/*
-	var ok = false;
-	var new_songs = [];
-	var index = 0;
-	var page = 1;
-	while(!ok) {
 
-		var options = {						// https://api.genius.com/songs/:id/songs 
-			url: API + "/artists/" + id + "/songs?sort=popularity&page=" + page, 
-			headers: {
-				'Authorization' : 'Bearer ' + access_token
-			}
-		};
-	
-		// request to genius API
-		request(options, function callback(error, response, body) {
-	
-			if (!error && response.statusCode == 200) {
-
-				if(JSON.parse(body).response.next_page == null) {
-					ok = true;
-					break;
-				}
-				
-				var songs = JSON.parse(body).response.songs;
-
-				songs.forEach(song => {
-					if(song.primary_artist.id == id) new_songs[index++] = song;
-					if(index == 9) {
-						ok = true;
-						break;
-					}
-				});
-				page++;
-			}
-	
-			else 
-				console.log(error);
-		});
-
-		func(new_songs);
-	}
-*/
 	var options = {						// https://api.genius.com/songs/:id/songs 
 		url: API + "/artists/" + id + "/songs?sort=popularity&per_page=50", 
 		headers: {
@@ -158,7 +117,7 @@ function descriptionCleaning(info, func) {
 
 // Recursive function to clean all the elements of the dom
 function descriptionCleaningRecursive(element) {
-	if(element.tag == 'br' || element.tag == 'img') {
+	if(element.tag == 'br' || element.tag == 'img' || element.tag == 'hr') {
 		return "\n";
 	}
 	else if(element.tag) {
@@ -245,5 +204,42 @@ function geniusFilter(info) {					    //info is Genius JSON
 		}
 	}
 	return x;
+
+}
+
+// To convert ids we have to search the best artist song in the genius search engine and 
+// retrive the informations about the artist 
+exports.spotifyToGeniusArtistId = function(token, id, func) {
+
+	console.log("requesting spotify for artist " + id + "best song");
+	spotify.getBestSong(token, id, function(song_name, artist_name) {
+
+		song_name = song_name.substring(0, song_name.lastIndexOf('('));
+
+		console.log("spotify responded with " + song_name + " from " + artist_name);
+
+		var options = {								/* https://api.genius.com/search?q=:query */
+			url: API + "/search?" + querystring.stringify({ q: song_name + " " + artist_name }), 
+			headers: {
+				'Authorization': 'Bearer ' + access_token
+			 }
+		};
+	
+		//makes the request to Genius Api to obtain the research data
+		request(options, function callback(error, response, body) {
+	
+			if (!error && response.statusCode == 200) {
+				console.log("found artist: " + JSON.parse(body).response.hits[0].result.primary_artist.name);
+				var new_id = JSON.parse(body).response.hits[0].result.primary_artist.id;
+				func(new_id);
+			}
+			
+			else 
+				console.log(error);
+	
+		});  
+
+	});
+
 
 }

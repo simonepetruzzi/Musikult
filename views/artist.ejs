@@ -64,31 +64,88 @@
         </div>
     </div>
 
-    <div class = "container bottom-container">
-        <div class="row flex-row flex-nowrap">
-            <% related_artists.forEach(artist => { %>
-                <img src= <%= artist.images[0].url %> >
-            <% }) %>
+    <% if (related_artists) { %>
+
+        <p class= "related-artists-title"> Related Artists</p>
+
+        <div class = "container-fluid" style="height: 0px; padding-right: 0px; padding-left: 0px;">
+            <div class="row justify-content-start container-fluid" style="position: relative; z-index: 900; margin-left: 0px; margin-right: 0px; padding-left: 0px; padding-right: 0px; height:0px">
+                <div class="container-fluid col-1 scroll-area left"> <p class="arrow"> &#8810 </p></div> 
+                <div class="container-fluid col-1 offset-10 scroll-area right"> <p class="arrow"> &#8811 </p></div> 
+            </div>
         </div>
-    </div>
-        
+        <div class = "container bottom-container">
+            <div class="row container-fluid">
+                <div class="row flex-row flex-nowrap related-artists-row" style="position: relative;">
+                    <% related_artists.forEach(artist => { %>
+                        <div class="related-artist" id= <%= artist.id %> >
+                            <img src= <%= artist.images[0].url %> class="related-artist-img">
+                            <p class="related-artist-text"> <%= artist.name %> </p>
+                        </div>
+                    <% }) %>
+                </div>
+            </div>
+        </div>
+     
+    <% } %> 
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="script/bootstrap.min.js"> </script>
 
-    <script> 
+    <script>
+
+    var url = new URL(window.location.href);
+    var token = url.searchParams.get("access_token");
+
         $(document).ready(function(){
-        $(".song-div").mouseenter(function(){
-            $(this).css("background-color", "rgba(143, 143, 143, 0.199)");
-        });
-        $(".song-div").mouseleave(function(){
-            $(this).css("background-color", "rgba(143, 143, 143, 0)");
+            $(".song-div").mouseenter(function(){
+                $(this).css("background-color", "rgba(143, 143, 143, 0.199)");
+            });
+            $(".song-div").mouseleave(function(){
+                $(this).css("background-color", "rgba(143, 143, 143, 0)");
+            });
+
+            $(".song-div").click(function() {
+                window.location.href = "http://localhost:3000/songs?id=" + $(this).attr("id");
+            });
         });
 
-        $(".song-div").click(function() {
-            window.location.href = "http://localhost:3000/songs?id=" + $(this).attr("id");
+        var n=0;
+        $(document).ready(function() {
+            $(".left").click(function() {
+                n += 600;
+                $(".related-artists-row").animate({
+                    left: n + "px",
+                });
+                n++;
+            });
+            $(".right").click(function() {
+                n -= 600;
+                $(".related-artists-row").animate({
+                    left: n + "px",
+                });
+            });
+
+            $(".related-artist") .mouseenter(function() {
+                $(this).children(".related-artist-img").css({
+                    filter: "brightness(50%)",
+                })
+                $(this).children(".related-artist-text").show();
+            });
+            $(".related-artist").mouseleave(function() {
+                $(this).children(".related-artist-img").css({
+                    filter: "brightness(100%)",
+                })
+                $(this).children(".related-artist-text").hide();
+            });
+
+            $(".related-artist").click(function() {
+                window.location.href = "http://localhost:3000/artists" + "?access_token=" + token + "&" + "id=" + $(this).attr("id") + "s";
+            });
+            
         });
-    });
+
+
     </script>
 
 </body>
