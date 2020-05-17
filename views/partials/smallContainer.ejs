@@ -6,7 +6,7 @@
 		<div class="row">
 		<% for( let i = 0; i < 3; i++ ) { %>
 				<div class="col-sm-4">
-					<div class="card" style="width: 18rem;" >
+					<div class="artist-card" style="width: 18rem;" artist-id="<%=artist.artisti[i].id%>">
 						<img src=<%= artist.artisti[i].image.url %> class="card1">
 						<div class="card-body">
 							<h5 class="card-title"><%= artist.artisti[i].name %></h5>
@@ -19,7 +19,7 @@
 		<div class="row">
 			<% for( let i = 3; i < 6; i++ ) { %>
 					<div class="col-sm-4">
-						<div class="card" style="width: 18rem;" >
+						<div class="artist-card" style="width: 18rem;" artist-id="<%=artist.artisti[i].id%>">
 							<img src=<%= artist.artisti[i].image.url %> class="card1">
 							<div class="card-body">
 								<h5 class="card-title"><%= artist.artisti[i].name %></h5>
@@ -36,7 +36,7 @@
     	<div class="row">
 			<% for( let i = 0; i < 3; i++ ) { %>
 					<div class="col-sm-4">
-						<div class="card" style="width: 18rem;" >
+						<div class="song-card" style="width: 18rem;" artist-name = "<%= tracks.tracks[i].nameartist %>" song-name = "<%= tracks.tracks[i].name%>" >
 							<img src=<%= tracks.tracks[i].image %> class="card1">
 							<div class="card-body">
 								<h5 class="card-title"><%= tracks.tracks[i].name %></h5>
@@ -49,7 +49,7 @@
 		<div class="row">
 			<% for( let i = 3; i < 6; i++ ) { %>
 					<div class="col-sm-4">
-						<div class="card" style="width: 18rem;">
+						<div class="song-card" style="width: 18rem;" artist-name = "<%= tracks.tracks[i].nameartist %>" song-name = "<%= tracks.tracks[i].name%>">
 							<img src=<%= tracks.tracks[i].image %> class="card1">
 							<div class="card-body">
 								<h5 class="card-title"><%= tracks.tracks[i].name %></h5>
@@ -58,7 +58,51 @@
 					</div>
 			<% } %>
 		</div>
-    </div>
-</div>
+	</div>
+	<script>
+		var url = new URL(window.location.href);
+		var token = url.searchParams.get("access_token");
+		
+		$(document).ready(function(){
+			$(".artist-card").mouseenter(function(){
+				$(this).children(".card1").css({
+						filter: "brightness(50%)",
+				});
+			});
+			$(".artist-card").mouseleave(function(){
+				$(this).children(".card1").css({
+						filter: "brightness(100%)",
+				});
+			});
+			$(".artist-card").click(function() {
+				window.location.href = "http://localhost:3000/artists" + "?access_token=" + token + "&" + "id=" + $(this).attr("artist-id") + "s";
+			});
+	
+		});
+	
+		$(document).ready(function(){
+			$(".song-card").mouseenter(function(){
+				$(this).children(".card1").css({
+						filter: "brightness(50%)",
+				});
+			});
+			$(".song-card").mouseleave(function(){
+				$(this).children(".card1").css({
+						filter: "brightness(100%)",
+				});
+			});
+			$(".song-card").click(function(){
+				var artist=$(this).attr("artist-name");
+				var song=$(this).attr("song-name");
+				console.log("elements :" + artist + "\n" + song);
+				geniusRef(artist,song)
+				
+			});
+		});
+	</script>
+	<script>
 
+	</script>
+	<script src ="../script/geniusref.js"></script>
+</div>
 

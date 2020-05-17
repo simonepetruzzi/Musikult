@@ -163,10 +163,11 @@ function tracksFilter(info1){
         y.tracks.push({
             id : response1.album.id,
             image : response1.album.images[1].url,
-            name : response1.album.name,
-            idartist : response1.album.artists.id,
-            nameartist : response1.album.artists.name
+            name : response1.name,
+            idartist : response1.artists[0].id,
+            nameartist : response1.artists[0].name
         })
+        console.log(y)
     }
     return y
 }

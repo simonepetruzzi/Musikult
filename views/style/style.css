@@ -35,7 +35,9 @@
     height: 300px;
     object-fit: cover;
 }
-
+.card-title{
+    color: white;
+}
 
 
 
