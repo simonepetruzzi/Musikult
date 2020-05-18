@@ -5,6 +5,12 @@ const access_token = "kG91TrvmqYf06aeYAOpgxFTXcmUAJ0N0wRCtbn7m-tHXsfGVDWULJAGro3
 const API = "https://api.genius.com";
 
 function geniusRef(artist,song) {
+    for(let i=0;i<song.length;i++){
+        if(song[i]=="(" || song[i] == "-"){
+            song = song.slice(0,i)
+        }
+    }
+    console.log(song);
     artist = artist.replace(" ","%20");
     song = song.replace(" ","%20");
 
@@ -13,8 +19,6 @@ function geniusRef(artist,song) {
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = handleResponse;
     httpRequest.open("GET",url,false);
-    //httpRequest.setRequestHeader("Content-Type", "application/json");
-    //httpRequest.setRequestHeader('Authorization', 'Bearer ' + access_token)
     httpRequest.send();
    
 };

@@ -166,8 +166,40 @@ function tracksFilter(info1){
             name : response1.name,
             idartist : response1.artists[0].id,
             nameartist : response1.artists[0].name
-        })
-        console.log(y)
+        });
     }
     return y
+}
+exports.spotifyUserInformation=function(token,func){
+    var options = {
+        url: "https://api.spotify.com/v1/me",
+        headers : {
+            'Authorization': 'Bearer ' + token
+        }
+    };
+    
+    request.get(options, function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var z = informationFilter(JSON.parse(body));
+            func(z);
+        }
+
+        else 
+            console.log(error);    
+    });
+}
+
+function informationFilter(info2){ 
+    var z ={
+        information: []
+    }
+
+    z.information.push({
+        country : info2.country,
+        name : info2.display_name,
+        image : info2.images[0].url
+    });
+    console.log(z);
+    return z;
+    
 }

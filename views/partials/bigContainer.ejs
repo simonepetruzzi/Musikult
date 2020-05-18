@@ -1,16 +1,19 @@
 <!-- BIG CONTAINER TEMPLATE -->
-
+<head>
+    <link rel="stylesheet" href="views/style/style.css">
+</head>
 <div class="container-fluid" id="bigcontainer">
 
     <div class="container-fluid" id="background">
+        
+
+        <% if(!isLogged) { %>+
         <div class="page-title">
             <h1 class="display-2" style="color:rgb(216, 163, 29)">Musikult </h1>
             <h1 class="display-3" style="color:white; padding-left: 238px;">Your music portal</h2>
         </div>
         
         <div style = "padding-top: 40px;"></div>
-
-        <% if(!isLogged) { %>
             <div class= "container-fluid">
                 <div class = "row justify-content-center">
                     <div class = "col-sm-3">    
@@ -24,6 +27,16 @@
     </div>
 
     <% if(isLogged) { %>
+		<img src=<%= inf.information[0].image%> class="header-image">
+        <hr>
+        <hr>       
+        <div class="container-fluid" style="position: relative;">
+            <div class="row justify-content-start" style="padding-top: 200px; padding-left: 50px;" >
+                <div class= "container song-title col-12">
+                    <h1 class="display-3" style="color: rgba(255, 255, 255, 0.950)"> <%= inf.information[0].name %> </h1>
+                </div>
+            </div>
+        </div>
         <%- include('smallContainer'); %>
     <% } %> 
 

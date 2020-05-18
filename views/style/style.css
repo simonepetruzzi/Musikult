@@ -16,7 +16,7 @@
 }
 
 #smallcontainer {
-    padding-top: 400px;
+    padding-top: 300px;
     position: relative;
     z-index: 500;
 }
@@ -38,6 +38,15 @@
 .card-title{
     color: white;
 }
+.header-image {
+
+    position: absolute;
+    object-fit: cover;
+    width: 99%;
+    height: 500px;
+}
+
+
 
 
 
