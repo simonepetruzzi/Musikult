@@ -78,6 +78,7 @@ function filterLyrics(string, func) {
     var index = 0;
     for(var i = 0; i < string.length; i++) {
         if(string[i] == '\n') filtered[++index] = "";
+        else if(string[i] == '§') filtered[index] += "'";
         else filtered[index] += string[i];
     }
 
