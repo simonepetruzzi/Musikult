@@ -194,12 +194,14 @@ function informationFilter(info2){
         information: []
     }
 
+    var image = null;
+    if(info2.images[0]) image = info2.images[0].url; 
+
     z.information.push({
         country : info2.country,
         name : info2.display_name,
-        image : info2.images[0].url
+        image : image
     });
-    console.log(z);
     return z;
     
 }

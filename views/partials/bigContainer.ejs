@@ -7,7 +7,7 @@
     <div class="container-fluid" id="background">
         
 
-        <% if(!isLogged) { %>+
+        <% if(!isLogged) { %>
         <div class="page-title">
             <h1 class="display-2" style="color:rgb(216, 163, 29)">Musikult </h1>
             <h1 class="display-3" style="color:white; padding-left: 238px;">Your music portal</h2>
@@ -27,7 +27,11 @@
     </div>
 
     <% if(isLogged) { %>
-		<img src=<%= inf.information[0].image%> class="header-image">
+        <% if(inf.information[0].image) {%>
+            <img src=<%= inf.information[0].image%> class="header-image">
+        <% } else { %>
+            <div class= "header-image" style="background-color: #051620"></div>
+        <% } %>
         <hr>
         <hr>       
         <div class="container-fluid" style="position: relative;">
@@ -37,6 +41,7 @@
                 </div>
             </div>
         </div>
+        
         <%- include('smallContainer'); %>
     <% } %> 
 
