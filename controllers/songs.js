@@ -2,7 +2,6 @@ const express = require("express");
 const bodyparser = require("body-parser");
 
 const genius = require("../utilities/genius.js");
-const happi = require("../utilities/happi.js");
 const db = require("../utilities/db.js");
 
 var router = express.Router();

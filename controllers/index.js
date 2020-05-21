@@ -30,6 +30,7 @@ router.get("/",(req,res) => {
 router.use("/spotifyAuth", require("./spotifyAuth"));
 router.use("/songs", require("./songs"));
 router.use("/artists", require("./artists"));
+router.use("/submit", require("./submit"));
 
 
 module.exports = router;
