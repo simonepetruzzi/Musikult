@@ -102,8 +102,16 @@ exports.spotifyIDTracks=function(token,func){
     
     request.get(options, function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
-            var x = tracksFilter(JSON.parse(body));
-            func(x);
+            var b = JSON.parse(body);
+            //console.log(b);
+            if(b.total !=0){
+                var x = tracksFilter(JSON.parse(body));
+                func(x);
+            }
+            else{
+                func(null);
+            }
+            
         }
 
         else 
@@ -120,14 +128,20 @@ exports.spotifyIDArtists=function(token,func){
     request.get(options, function callback(error, response, body) {		
 
         if (!error && response.statusCode == 200) {
-            var y = artistFilter(JSON.parse(body));
-            func(y);
+            var a = JSON.parse(body)
+            if(a.total != 0){
+                var y = artistFilter(JSON.parse(body));
+                func(y);
+            }
+            else{
+                console.log("non ho informazioni sugli artisti per questo utente e sto per uscire ");
+                func(null);
+            }
         }
 
         else {
             console.log(error);
         }
-            
     });
 };
     
