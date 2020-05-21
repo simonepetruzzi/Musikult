@@ -108,7 +108,10 @@
             });
 
             $(".song-div").click(function() {
-                window.location.href = "http://localhost:3000/songs?id=" + $(this).attr("id");
+                if(token)
+                    window.location.href = "http://localhost:3000/songs?access_token=" + token + "&id=" + $(this).attr("id");
+                else
+                    window.location.href = "http://localhost:3000/songs?id=" + $(this).attr("id");
             });
         });
 

@@ -17,7 +17,8 @@ con.connect(function(err) {
 
 });
 
-exports.insertLyrics = function(id, text) {
+
+function insertLyrics(id,text) {
 
     var value = "";
     for(var i = 0; i < text.length; i++) {     //cleans text
@@ -35,7 +36,10 @@ exports.insertLyrics = function(id, text) {
         console.log("Inserted 1 record");
         console.log("________________________________");
     });
+    
 }
+
+exports.insertLyrics = function(id, text) { insertLyrics(id, text); }
 
 exports.getLyrics = function(id, song_name, artist_name, callback) {
 
@@ -56,17 +60,25 @@ exports.getLyrics = function(id, song_name, artist_name, callback) {
             console.log("No result found in database");
             console.log("Requesting lyrics to Happi\n");
 
-            happi.getSongInfo(song_name, artist_name, function(obj2) {
-                if(obj2) {
-                    console.log("Lyrics found")
-                    console.log("Inserting them in the database\n")
+            happi.getSongInfo(song_name, artist_name, function(lyrics) {
 
-                    console.log("******THIS PART IS YET TO BE ADDED******\n");
+                if(lyrics) {
+
+                    console.log("Lyrics found");
+                    console.log("Inserting data in the database\n");
+
+                    insertLyrics(id, lyrics);
+                    console.log("Lyrics inserted in database\n");
+
+                    filterLyrics(lyrics, function(filtered) {
+                        callback(filtered);
+                    });
+                    
                 }
                 else {
                     console.log("Lyrics not found\n");
+                    callback(null);
                 }
-                callback(obj2);
             });
         }
     });

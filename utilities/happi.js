@@ -54,9 +54,7 @@ function getLyrics(lyrics_api, func) {
     request(options, function callback(error, response, body) {
 
         if (!error && response.statusCode == 200) {
-            filterLyrics((JSON.parse(body)).result.lyrics, function(lyrics) {
-                func(lyrics);
-            })
+            func((JSON.parse(body)).result.lyrics);
         }
 
 		else {
@@ -66,6 +64,8 @@ function getLyrics(lyrics_api, func) {
 	});
 }
 
+
+// NOT USED
 function filterLyrics(string, func) {
 
     var filtered = [""];
