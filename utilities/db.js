@@ -1,12 +1,15 @@
 const express = require("express");
 const mysql = require("mysql");
+const keys = require("./keys.js");
 
 const happi = require("./happi.js");
+
+var password = keys.getDBPassword();
 
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "12051998",
+    password: password,
     database: 'musikult'
 });
 

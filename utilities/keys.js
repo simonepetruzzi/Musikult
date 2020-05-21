@@ -11,8 +11,9 @@ const SPOTIFY_CLIENT_SECRET = '9a55bd0d2fac417e86b1a915c132bcad';
 //Happi
 const HAPPY_KEY 			= '4ac2bb0MtAJfh11gpj6Nq31FmtEgbk6DfVqMsBev5tdFJi3vCdVHEpme';
 
-//LastFM 
-const LastFmKey = '36e40c0bdeda4b90b8b007257a8de61d';
+//Database
+const DB_PASSWORD			= '12051998';
+
 /****************************************/
 
 /************** METHODS *******************/
@@ -28,9 +29,7 @@ exports.getSpotifyClientSecret  = function() { return SPOTIFY_CLIENT_SECRET }
 //Happi
 exports.getHappiKey				= function() { return HAPPY_KEY }
 
-//LastFM
-exports.getLastFmKey            = function() { return LastFmKey }
-function LastFmReq(method) {
-	return 'http://ws.audioscrobbler.com/2.0/?method='+method+'&api_key='+ LastFmKey +'&format=json';
-}
+//Database
+exports.getDBPassword			= function() { return DB_PASSWORD }
+
 /******************************************/
