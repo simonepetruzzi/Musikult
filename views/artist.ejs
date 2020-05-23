@@ -52,6 +52,12 @@
                     </div>
                 <% }) %> </p>
                 
+                <% if(follow == true) { %>
+                    <button type="button" class="btn btn-success btn-lg" id="spotifyButton">Unfollow</button>
+                <% } else { %>
+                    <button type="button" class="btn btn-success btn-lg" id="spotifyButton">Follow</button>
+                <% } %>
+                
             </div>
             
             <div class="container-fluid col-md-5">

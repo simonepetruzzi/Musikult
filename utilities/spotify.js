@@ -219,3 +219,21 @@ function informationFilter(info2){
     return z;
     
 }
+exports.spotifyfollow=function(token,id,func){
+    var options = {
+        url: "https://api.spotify.com/v1/me/following/contains?type=artist&ids=" + id,
+        headers : {
+            'Authorization': 'Bearer ' + token,
+        }
+    };
+    request.get(options, function callback(error, response, body) {		
+        if (!error && response.statusCode == 200) {
+            var y =(JSON.parse(body))[0];
+            func(y);
+        }
+
+        else {
+            console.log(error);
+        }
+    });
+}

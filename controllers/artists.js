@@ -8,19 +8,24 @@ router.get('/', function(req, res) {
 
     var token = req.query.access_token;
     var id = req.query.id;
+    var ids= id.slice(0,id.length -1);
+    console.log(ids);
+
 
     if(id.charAt(id.length - 1) == 's') { //if id is from spotify converts it
-
+        
         id = id.substring(0, id.length-1);
+        spotify.spotifyfollow(token,ids,function(obj3){
         genius.spotifyToGeniusArtistId(token, id, function(new_id) {
             genius.getArtistInfo(new_id, function(obj) {
                 if(token) {
                     spotify.getRelatedArtistsWithId(token, id, function(obj2) {
-                        res.render('artist', {info: obj, related_artists: obj2});
+                        res.render('artist', {info: obj, related_artists: obj2,follow: obj3});
                     });
                 }
                 else res.render('artist', {info: obj, related_artists: null});
-            });
+            }); 
+        });
         });
     }
     else {
