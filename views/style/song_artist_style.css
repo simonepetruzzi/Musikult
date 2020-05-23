@@ -34,7 +34,11 @@ body {overflow-x: hidden;}
 }
 
 .mid-panel {
-    padding-top: 270px;
+    padding-top: 230px;
+}
+
+#spotify-button {
+    margin-bottom: 40px;
 }
 
 .producers {

@@ -1,5 +1,6 @@
 const express = require('express');
 const request = require('request');
+const querystring = require('querystring');
 
 const APIt = "https://api.spotify.com/v1/me/top/tracks";
 const APIa = "https://api.spotify.com/v1/me/top/artists";
@@ -25,7 +26,7 @@ exports.getRelatedArtistsWithId = function(token, id, func) {
 
 exports.getRelatedArtistsWithoutId = function(token, artist, func) {
 
-    search(token, artist, function(id) {
+    searchArtist(token, artist, function(id) {
 
         var options = {
             url: "https://api.spotify.com/v1/artists/" + id + "/related-artists",
@@ -41,6 +42,28 @@ exports.getRelatedArtistsWithoutId = function(token, artist, func) {
     
             else 
                 console.log(error);
+        });
+    })
+}
+
+exports.getAddToLibrary = function(token, song, func) {
+
+    searchSong(token, song, function(id) {
+
+        var options = {
+            url: "https://api.spotify.com/v1/me/tracks/contains?ids=" + id,
+            headers : {
+                'Authorization': 'Bearer ' + token
+            }
+        };
+        
+        request.get(options, function callback(error, response, body) {
+            if (!error && response.statusCode == 200) {
+                func(JSON.parse(body));
+            }
+    
+            else 
+                console.log("Error in add to library: " + response.statusCode + " " + response.statusMessage);
         });
     })
 }
@@ -72,7 +95,7 @@ exports.getBestSong = function(token, id, func) {
     
 }
 
-function search(token, artist, func) {
+function searchArtist(token, artist, func) {
 
     var options = {
         url: "https://api.spotify.com/v1/search?type=artist&q="+artist,
@@ -88,6 +111,26 @@ function search(token, artist, func) {
 
         else 
             console.log(error);
+    });
+
+}
+
+function searchSong(token, song, func) {
+
+    var options = {
+        url: "https://api.spotify.com/v1/search?type=track&" + querystring.stringify({ q: song }),
+        headers : {
+            'Authorization': 'Bearer ' + token
+        }
+    };
+    
+    request.get(options, function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            func(JSON.parse(body).tracks.items[0].id);
+        }
+
+        else 
+            console.log("Error in search song: " + response.statusCode + " " + response.statusMessage);
     });
 
 }
@@ -228,8 +271,7 @@ exports.spotifyfollow=function(token,id,func){
     };
     request.get(options, function callback(error, response, body) {		
         if (!error && response.statusCode == 200) {
-            var y =(JSON.parse(body))[0];
-            func(y);
+            func(JSON.parse(body));
         }
 
         else {

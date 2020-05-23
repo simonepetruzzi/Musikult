@@ -30,6 +30,15 @@
     </div>
 
     <div class="container mid-panel">
+
+        <% if(follow) { %>
+            <% if(follow[0]) { %>
+                <button type="button" class="btn btn-secondary btn-lg" id="spotify-button">Unfollow</button>
+            <% } else { %>
+                <button type="button" class="btn btn-success btn-lg" id="spotify-button">Follow</button>
+            <% } %>
+        <% } %>
+
         <div class="row">
             <div class = "container-fluid col-md-7">
 
@@ -51,12 +60,6 @@
                         <hr style="color:rgba(121, 121, 121, 0.651)">
                     </div>
                 <% }) %> </p>
-                
-                <% if(follow == true) { %>
-                    <button type="button" class="btn btn-success btn-lg" id="spotifyButton">Unfollow</button>
-                <% } else { %>
-                    <button type="button" class="btn btn-success btn-lg" id="spotifyButton">Follow</button>
-                <% } %>
                 
             </div>
             

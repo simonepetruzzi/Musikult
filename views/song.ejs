@@ -13,6 +13,15 @@
     <%- include('partials/songHeader'); -%>
 
     <div class="container mid-panel">
+
+        <% if(addToLibrary) { %>
+            <% if(addToLibrary[0]) { %>
+                <button type="button" class="btn btn-secondary btn-lg" id="spotify-button">Remove from library</button>
+            <% } else { %>
+                <button type="button" class="btn btn-success btn-lg" id="spotify-button">Add to library</button>
+            <% } %>
+        <% } %>
+
         <div class="row">
             <div class = "container-fluid col-md-7">
                 <% if (lyrics) { %>
