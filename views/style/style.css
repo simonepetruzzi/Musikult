@@ -12,6 +12,7 @@
 
 .background-canvas {
     background-color: #0a2638;
+    /*background-color: white; */
 }
  
 #background {
@@ -23,7 +24,7 @@
 }
 
 #smallcontainer {
-    padding-top: 300px;
+    padding-top: 200px;
     position: relative;
     z-index: 500;
 }
@@ -37,20 +38,53 @@
 .artist{
 	color: white;
 }
+
+.artist-card {
+    width: 300px;
+    height: 400px;
+}
+
+.song-card {
+    width: 300px;
+    height: 400px;
+}
+
 .card1{
     width: 100%;
     height: 300px;
     object-fit: cover;
 }
-.card-title{
-    color: white;
-}
+
 .header-image {
 
     position: absolute;
     object-fit: cover;
     width: 100%;
-    height: 500px;
+    height: 400px;
+}
+
+.carousel-img {
+    object-fit: cover;
+    width: 100%;
+    height: 400px;
+}
+
+.card-title {
+    position: relative; 
+    top: -200px;
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    font-size: 30px;
+    display: none
+}
+
+.card-subtitle {
+    position: relative; 
+    top: -175px;
+    color: rgba(255, 255, 255, 0.65);
+    text-align: center;
+    font-size: 25x;
+    display: none
 }
 
 

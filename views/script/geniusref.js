@@ -6,7 +6,7 @@ const API = "https://api.genius.com";
 
 function geniusRef(artist,song) {
     for(let i=0;i<song.length;i++){
-        if(song[i]=="(" || song[i] == "-"){
+        if(song[i]=="("){
             song = song.slice(0,i)
         }
     }
@@ -14,7 +14,7 @@ function geniusRef(artist,song) {
     artist = artist.replace(" ","%20");
     song = song.replace(" ","%20");
 
-    var url = API + "/search?q=" + artist + "%20" + song + "&"+ "access_token=" + access_token;/* https://api.genius.com/search?q=:query */
+    var url = API + "/search?q=" + song + "%20" + artist + "&"+ "access_token=" + access_token;/* https://api.genius.com/search?q=:query */
        
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = handleResponse;

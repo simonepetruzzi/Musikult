@@ -279,3 +279,31 @@ exports.spotifyfollow=function(token,id,func){
         }
     });
 }
+
+exports.getNewReleases = function(token, func) {
+
+    var options = {
+        url: "https://api.spotify.com/v1/browse/new-releases?country=US",
+        headers : {
+            'Authorization': 'Bearer ' + token,
+        }
+    };
+    request.get(options, function callback(error, response, body) {		
+        if (!error && response.statusCode == 200) {
+            var singles = [];
+            var items = JSON.parse(body).albums.items;
+            for(var i = 0; i < items.length; i++) {
+                if(items[i].album_type == 'single') {
+                    singles.push(items[i]);
+                    if(singles.length >= 5) break; 
+                }       
+            }
+            func(singles);
+        }
+
+        else {
+            console.log(error);
+        }
+    });
+    
+}

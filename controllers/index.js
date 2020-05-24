@@ -16,10 +16,18 @@ router.get("/",(req,res) => {
 		res.render('home', { isLogged: false });
 	
 	else{
-		spotify.spotifyIDArtists(token,function(obj){
-			spotify.spotifyIDTracks(token,function(obj1){
-				spotify.spotifyUserInformation(token,function(obj2){
-					res.render('home', { isLogged: true , artist: obj,tracks: obj1,inf : obj2});
+		spotify.spotifyIDArtists(token,function(obj) {
+			spotify.spotifyIDTracks(token,function(obj1) {
+				spotify.spotifyUserInformation(token,function(obj2) {
+					spotify.getNewReleases(token, function(releases) {
+						res.render('home', { 
+							isLogged: true , 
+							artist: obj,
+							tracks: obj1,
+							inf : obj2,
+							newReleases: releases
+						});
+					});
 				});
 			});
 		});
