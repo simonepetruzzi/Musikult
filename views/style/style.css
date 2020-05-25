@@ -52,6 +52,9 @@ body{
 
     padding-bottom: 20px;
     text-align: center;
+    font-family: 'Sarabun', sans-serif;
+    font-size: 100px;
+}
 
 }
 
@@ -107,6 +110,10 @@ body{
     display: none
 }
 
+.gfont{
+    font-family: 'Sarabun', sans-serif;
+    font-size: 100px;
+}
 
 
 
