@@ -1,7 +1,26 @@
 
+body{
+    background-image: url(../img/icon.png);
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+    background-position:center;
+
+    background-size: 200px;
+}
+
 .icon {
     width: 40px;
     height: 40px
+}
+
+.background-logo {
+    position: fixed;
+
+    width: 150px;
+    height: 150px;
+
+    left: 50%;
+    right: -75px;
 }
 
 #bigcontainer {

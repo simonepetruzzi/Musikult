@@ -29,7 +29,7 @@ body {overflow-x: hidden;}
 }
 
 .not-lyrics {
-    color: rgba(65, 64, 64, 0.678);
+    color: rgba(65, 64, 64, 0.8);
     font-size: 16px;
 }
 
@@ -52,7 +52,7 @@ body {overflow-x: hidden;}
 
 .song-title {
     padding-top: 25px;
-    color: rgba(255, 255, 255, 0.900);
+    color: rgba(0, 0, 0, 0.900);
     font-size: 18px;
     font-weight: 600;
 }
@@ -70,7 +70,7 @@ body {overflow-x: hidden;}
     padding-top: 50px;
     font-size: 40px;
     font-weight: 600;
-    color:rgba(255, 255, 255, 0.900);
+    color:rgba(0, 0, 0, 0.900);
     padding-left: 60px;
 }
 
