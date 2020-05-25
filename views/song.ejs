@@ -16,20 +16,20 @@
         <script>
             var songid="<%= spotifyId %>"
         </script>
-        <div class="container-fluid row">
+        <div class="container-fluid row" style="padding-bottom: 40px;">
 
             <div id="add-to-library-button" class="col-3">
                 <% if(addToLibrary) { %>
                     <% if(addToLibrary[0]) { %>
-                        <button type="button" class="btn btn-secondary btn-lg" id="spotify-button" onclick="removetrack(songid,token)">Remove From Library</button>
+                        <button type="button" class="btn btn-secondary btn-lg rounded-pill" onclick="removetrack(songid,token)">Remove From Library</button>
                     <% } else { %>
-                        <button type="button" class="btn btn-success btn-lg" id="spotify-button" onclick="addtrack(songid,token)">Add To Library</button>
+                        <button type="button" class="btn btn-success btn-lg rounded-pill" onclick="addtrack(songid,token)">Add To Library</button>
                     <% } %>
                 <% } %>
             </div>
 
             <div id="play-button" class="col-3">
-                <button type="button" class="btn btn-success btn-lg" id="play-button" onclick="play(songid, token)"> Play </button>
+                <button type="button" class="btn btn-success btn-lg rounded-pill" id="play-button" onclick="play(songid, token)"> Play </button>
             </div>
         </div>
         
