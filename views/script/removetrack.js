@@ -5,7 +5,6 @@ function removetrack(id,token) {
     httpRequest.onreadystatechange = handleResponse;
     httpRequest.open("PUT",url,false);
     httpRequest.send();
-   
 };
 
 function handleResponse(e){

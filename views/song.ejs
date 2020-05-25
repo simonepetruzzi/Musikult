@@ -14,13 +14,13 @@
 
     <div class="container mid-panel">
         <script>
-            var songid="<%= %>"
+            var songid="<%= spid.tracks.id %>"
         </script>
         <% if(addToLibrary) { %>
             <% if(addToLibrary[0]) { %>
-                <button type="button" class="btn btn-secondary btn-lg" id="spotify-button">Remove from library</button>
+                <button type="button" class="btn btn-secondary btn-lg" id="spotify-button" onclick="removetrack(songid,token)">Remove from library</button>
             <% } else { %>
-                <button type="button" class="btn btn-success btn-lg" id="spotify-button">Add to library</button>
+                <button type="button" class="btn btn-success btn-lg" id="spotify-button" onclick="addtrack(songid,token)">Add to library</button>
             <% } %>
         <% } %>
 

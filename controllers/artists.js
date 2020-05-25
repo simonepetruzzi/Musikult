@@ -13,6 +13,7 @@ router.get('/', function(req, res) {
     if(id.charAt(id.length - 1) == 's') { //if id is from spotify converts it
         
         id = id.substring(0, id.length-1);
+        
         spotify.spotifyfollow(token,ids,function(obj3){
             genius.spotifyToGeniusArtistId(token, id, function(new_id) {
                 genius.getArtistInfo(new_id, function(obj) {
