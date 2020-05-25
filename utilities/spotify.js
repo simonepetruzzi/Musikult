@@ -177,7 +177,6 @@ exports.spotifyIDArtists=function(token,func){
                 func(y);
             }
             else{
-                console.log("non ho informazioni sugli artisti per questo utente e sto per uscire ");
                 func(null);
             }
         }

@@ -1,4 +1,19 @@
 <div id="smallcontainer">
+
+	<div class="container-fluid" style= "padding-bottom: 150px">
+		<div class="row justify-content-start" style="padding-top: 100px; padding-left: 50px;" >
+			<div class= "container song-title col-9">
+				<h1 style="color: rgba(0, 0, 0, 0.800)"> <%= inf.information[0].name %> </h1>
+			</div>
+
+			<% if(inf.information[0].image) { %>
+				<div class="container-fluid col-3">
+					<img src=<%= inf.information[0].image%> class="header-image">
+				</div>
+			<% } %>
+		</div>
+	</div>
+
 	<div class="container">
 
 		<h1 class="display-4" style="padding-bottom: 10px; color:rgba(0, 0, 0, 0.9)">
@@ -27,72 +42,75 @@
 
 		<div class="container-fluid justify-content-center" style="margin-top: 100px;">
 
-			<h1 class="display-3" style="line-height: 2.0; padding-bottom: 10px; color:rgba(0, 0, 0, 0.9)">
-				Your Favourite Artists 
-			</h1>
+			<% if(artist != null) { %>
+				<h1 class="display-3" style="line-height: 2.0; padding-bottom: 10px; color:rgba(0, 0, 0, 0.9)">
+					Your Favourite Artists 
+				</h1>
 
-			<div class="row">
-				<% for( let i = 0; i < 3; i++ ) { %>
-					<% if (artist != null) { %>
-						<div class="col-sm-4 d-flex justify-content-center">
-							<div class="artist-card" artist-id="<%=artist.artisti[i].id%>">
-								<img src=<%= artist.artisti[i].image.url %> class="card1 shadow mb-5 rounded">
-								<p class="card-title"><%= artist.artisti[i].name %></p>
+				<div class="row">
+					<% for( let i = 0; i < 3; i++ ) { %>
+						<% if (artist.artisti[i] != null) { %>
+							<div class="col-sm-4 d-flex justify-content-center">
+								<div class="artist-card" artist-id="<%=artist.artisti[i].id%>">
+									<img src=<%= artist.artisti[i].image.url %> class="card1 shadow mb-5 rounded">
+									<p class="card-title"><%= artist.artisti[i].name %></p>
+								</div>
 							</div>
-						</div>
+						<% } %>
 					<% } %>
-				<% } %>
-			</div>
+				</div>
 
-			<div class="row">
-				<% for( let i = 3; i < 6; i++ ) { %>
-					<% if ( artist != null) { %>
-						<div class="col-sm-4 d-flex justify-content-center">
-							<div class="artist-card" artist-id="<%=artist.artisti[i].id%>">
-								<img src=<%= artist.artisti[i].image.url %> class="card1 shadow mb-5 rounded">
-								<p class="card-title"><%= artist.artisti[i].name %></p>
+				<div class="row">
+					<% for( let i = 3; i < 6; i++ ) { %>
+						<% if ( artist != null) { %>
+							<div class="col-sm-4 d-flex justify-content-center">
+								<div class="artist-card" artist-id="<%=artist.artisti[i].id%>">
+									<img src=<%= artist.artisti[i].image.url %> class="card1 shadow mb-5 rounded">
+									<p class="card-title"><%= artist.artisti[i].name %></p>
+								</div>
 							</div>
-						</div>
+						<% } %>
 					<% } %>
-				<% } %>
-			</div>
+				</div>
+			<% } %>
 
 		</div>	
 
 		<div class="container-fluid justify-content-center">
 
-			<h1 class="display-3" style="line-height: 2.0; padding-bottom: 10px; color:rgba(0, 0, 0, 0.9)">
-				Your Favourite Songs 
-		    </h1>
-   
-			<div class="row">
-				<% for( let i = 0; i < 3; i++ ) { %>
-					<% if ( tracks != null) { %>
-						<div class="col-sm-4 d-flex justify-content-center">
-							<div class="song-card" artist-name = "<%= tracks.tracks[i].nameartist %>" song-name = "<%= tracks.tracks[i].name%>" >
-								<img src=<%= tracks.tracks[i].image %> class="card1 shadow mb-5 rounded">
-								<p class="card-title"><%= tracks.tracks[i].name %></p>
-								<p class="card-subtitle"><%= tracks.tracks[i].nameartist %></p>
+			<% if(tracks != null) { %> 
+				<h1 class="display-3" style="line-height: 2.0; padding-bottom: 10px; color:rgba(0, 0, 0, 0.9)">
+					Your Favourite Songs 
+				</h1>
+	   
+				<div class="row">
+					<% for( let i = 0; i < 3; i++ ) { %>
+						<% if ( tracks.tracks[i] != null) { %>
+							<div class="col-sm-4 d-flex justify-content-center">
+								<div class="song-card" artist-name = "<%= tracks.tracks[i].nameartist %>" song-name = "<%= tracks.tracks[i].name%>" >
+									<img src=<%= tracks.tracks[i].image %> class="card1 shadow mb-5 rounded">
+									<p class="card-title"><%= tracks.tracks[i].name %></p>
+									<p class="card-subtitle"><%= tracks.tracks[i].nameartist %></p>
+								</div>
 							</div>
-						</div>
-					<% } %>	
-				<% } %>
-			</div>
-			
-			<div class="row">
-				<% for( let i = 3; i < 6; i++ ) { %>
-					<% if (tracks != null) { %>
-						<div class="col-sm-4 d-flex justify-content-center">
-							<div class="song-card" artist-name = "<%= tracks.tracks[i].nameartist %>" song-name = "<%= tracks.tracks[i].name%>">
-								<img src=<%= tracks.tracks[i].image %> class="card1 shadow mb-5 rounded">
-								<p class="card-title"><%= tracks.tracks[i].name %></p>
-								<p class="card-subtitle"><%= tracks.tracks[i].nameartist %></p>
-							</div>
-						</div>
+						<% } %>	
 					<% } %>
-				<% } %>
-			</div>
-
+				</div>
+				
+				<div class="row">
+					<% for( let i = 3; i < 6; i++ ) { %>
+						<% if (tracks != null) { %>
+							<div class="col-sm-4 d-flex justify-content-center">
+								<div class="song-card" artist-name = "<%= tracks.tracks[i].nameartist %>" song-name = "<%= tracks.tracks[i].name%>">
+									<img src=<%= tracks.tracks[i].image %> class="card1 shadow mb-5 rounded">
+									<p class="card-title"><%= tracks.tracks[i].name %></p>
+									<p class="card-subtitle"><%= tracks.tracks[i].nameartist %></p>
+								</div>
+							</div>
+						<% } %>
+					<% } %>
+				</div>
+			<% } %>
 		</div>
 
 		

@@ -17,21 +17,9 @@
     </div>
 
     <% if(isLogged) { %>
-        <% if(inf.information[0].image) {%>
-            <img src=<%= inf.information[0].image%> class="header-image">
-        <% } else { %>
-            <div class= "header-image" style="background-color: #051620"></div>
-        <% } %>
-     
-        <div class="container-fluid" style="position: relative;">
-            <div class="row justify-content-start" style="padding-top: 200px; padding-left: 50px;" >
-                <div class= "container song-title col-12">
-                    <h1 class="display-3" style="color: rgba(255, 255, 255, 0.950)"> <%= inf.information[0].name %> </h1>
-                </div>
-            </div>
-        </div>
         
         <%- include('smallContainer'); %>
+        
     <% } %> 
 
 </div>
