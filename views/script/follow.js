@@ -10,6 +10,7 @@ function follow(id,token) {
 
 function handleResponse(e){
     if (e.target.readyState == 4 && e.target.status == 200){
-        window.alert("Aggiuto ai tuoi preferiti");
+        $("#spotify-button").empty();
+        $("#spotify-button").append('<button type="button" class="btn btn-secondary btn-lg" id="spotify-button" onclick="unfollow(artistid,token)">Unfollow</button>');
     }    
 }
