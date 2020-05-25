@@ -3,7 +3,7 @@ function addtrack(id,token) {
 
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = handleResponseAdd;
-    httpRequest.open("PUT",url,false);
+    httpRequest.open("PUT", url, true);
     httpRequest.send();
    
 }

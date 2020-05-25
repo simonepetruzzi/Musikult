@@ -16,15 +16,23 @@
         <script>
             var songid="<%= spotifyId %>"
         </script>
-        <div id="add-to-library-button">
-            <% if(addToLibrary) { %>
-                <% if(addToLibrary[0]) { %>
-                    <button type="button" class="btn btn-secondary btn-lg" id="spotify-button" onclick="removetrack(songid,token)">Remove from library</button>
-                <% } else { %>
-                    <button type="button" class="btn btn-success btn-lg" id="spotify-button" onclick="addtrack(songid,token)">Add to library</button>
+        <div class="container-fluid row">
+
+            <div id="add-to-library-button" class="col-3">
+                <% if(addToLibrary) { %>
+                    <% if(addToLibrary[0]) { %>
+                        <button type="button" class="btn btn-secondary btn-lg" id="spotify-button" onclick="removetrack(songid,token)">Remove From Library</button>
+                    <% } else { %>
+                        <button type="button" class="btn btn-success btn-lg" id="spotify-button" onclick="addtrack(songid,token)">Add To Library</button>
+                    <% } %>
                 <% } %>
-            <% } %>
+            </div>
+
+            <div id="play-button" class="col-3">
+                <button type="button" class="btn btn-success btn-lg" id="play-button" onclick="play(songid, token)"> Play </button>
+            </div>
         </div>
+        
 
         <div class="row">
             <div class = "container-fluid col-md-7">
@@ -92,6 +100,7 @@
     <script src="script/player.js"></script>
     <script src="script/removetrack.js"></script>
     <script src="script/addtrack.js"></script>
+    <script src="script/play.js"></script>
     
     <script>
         var url = new URL(window.location.href);

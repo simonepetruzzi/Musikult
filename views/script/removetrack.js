@@ -3,7 +3,7 @@ function removetrack(id,token) {
 
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = handleResponseRemove;
-    httpRequest.open("DELETE", url, false);
+    httpRequest.open("DELETE", url, true);
     httpRequest.send();
 
 }
