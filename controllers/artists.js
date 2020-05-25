@@ -27,15 +27,17 @@ router.get('/', function(req, res) {
             });
         });
     }
-    else {
+    else { //if id is from genius 
 
         genius.getArtistInfo(id, function(obj) {
             if(token) {
-                spotify.getRelatedArtistsWithoutId(token, obj.artist.name, function(obj2) {
-                    spotify.spotifyfollow(token,ids,function(obj3){
-                        res.render('artist', {info: obj, related_artists: obj2, follow: obj3});
+                genius.geniusToSpotifyArtistId(token, id, function(spotifyId) {
+                    spotify.getRelatedArtistsWithoutId(token, obj.artist.name, function(obj2) {
+                        spotify.spotifyfollow(token, spotifyId, function(obj3) {
+                            res.render('artist', {info: obj, related_artists: obj2, follow: obj3, id: spotifyId });
+                        });
                     });
-                });
+                })
             }
             else res.render('artist', {info: obj, related_artists: null, follow: null});
         });

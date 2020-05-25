@@ -10,6 +10,6 @@ function addtrack(id,token) {
 };
 
 function handleResponse(e){
-    if (e.target.readyState == 4 && e.target.status == 200){
+    if (e.target.readyState == 4 && e.target.status == 200) {
     }    
 }

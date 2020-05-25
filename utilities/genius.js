@@ -241,3 +241,54 @@ exports.spotifyToGeniusArtistId = function(token, id, func) {
 	});
 }
 
+exports.geniusToSpotifyArtistId = function(token, id, func) {
+
+	var options = {
+		url: API + "/artists/" + id,  /* https://api.genius.com/artists/:id */
+		headers: {
+			'Authorization' : 'Bearer ' + access_token
+		}
+	};
+
+	//request to genius API to get artist informations
+	request(options, function callback(error, response, body) {
+
+		if (!error && response.statusCode == 200) {
+			
+			spotify.searchArtist(token, JSON.parse(body).response.artist.name, function(ids) {
+				func(ids);
+			});
+
+		}
+
+		else 
+			console.log(error);
+	});
+	
+}
+
+exports.geniusToSpotifySongId = function(token, id, func) {
+
+	var options = {
+		url: API + "/songs/" + id,  /* https://api.genius.com/songs/:id */
+		headers: {
+			'Authorization' : 'Bearer ' + access_token
+		}
+	};
+
+	//request to genius API to get song informations
+	request(options, function callback(error, response, body) {
+
+		if (!error && response.statusCode == 200) {
+			
+			spotify.searchSong(token, JSON.parse(body).response.song.title, function(ids) {
+				func(ids);
+			});
+
+		}
+
+		else 
+			console.log(error);
+	});
+	
+}

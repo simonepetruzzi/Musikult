@@ -307,3 +307,10 @@ exports.getNewReleases = function(token, func) {
     });
     
 }
+
+exports.searchArtist = function(token, artist, func) {
+    searchArtist(token, artist, func);
+}
+exports.searchSong = function(token, song, func) {
+    searchSong(token, song, func);
+}

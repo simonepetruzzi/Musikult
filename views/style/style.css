@@ -11,8 +11,8 @@
 }
 
 .background-canvas {
-    background-color: #0a2638;
-    /*background-color: white; */
+   /* background-color: #0a2638;*/
+    background-color: rgb(235, 235, 235); 
 }
  
 #background {
