@@ -18,7 +18,7 @@ router.get('/', function(req, res) {
                 genius.getArtistInfo(new_id, function(obj) {
                     if(token) {
                         spotify.getRelatedArtistsWithId(token, id, function(obj2) {
-                            res.render('artist', {info: obj, related_artists: obj2,follow: obj3});
+                            res.render('artist', {info: obj, related_artists: obj2,follow: obj3,id :ids});
                         });
                     }
                     else res.render('artist', {info: obj, related_artists: null});

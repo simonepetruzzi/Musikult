@@ -13,7 +13,9 @@
     <%- include('partials/songHeader'); -%>
 
     <div class="container mid-panel">
-
+        <script>
+            var songid="<%= %>"
+        </script>
         <% if(addToLibrary) { %>
             <% if(addToLibrary[0]) { %>
                 <button type="button" class="btn btn-secondary btn-lg" id="spotify-button">Remove from library</button>
@@ -86,6 +88,13 @@
 
     <script src="script/script.js"></script>
     <script src="script/player.js"></script>
+    <script src="script/removetrack.js"></script>
+    <script src="script/addtrack.js"></script>
+    
+    <script>
+        var url = new URL(window.location.href);
+        var token = url.searchParams.get("access_token");
+    </script>
 
     <script> 
 

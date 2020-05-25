@@ -1,9 +1,9 @@
-function follow(id,token) {
+function unfollow(id,token) {
     var url = "https://api.spotify.com/v1/me/following?type=artist&ids=" + id + "&"+ "access_token=" + token;
 
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = handleResponse;
-    httpRequest.open("PUT",url,false);
+    httpRequest.open("DELETE",url,false);
     httpRequest.send();
    
 };

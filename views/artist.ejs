@@ -28,14 +28,16 @@
         </div>
 
     </div>
-
+    <script>
+        var artistid = "<%= id %>" ;
+    </script>
     <div class="container mid-panel">
 
         <% if(follow) { %>
             <% if(follow[0]) { %>
-                <button type="button" class="btn btn-secondary btn-lg" id="spotify-button">Unfollow</button>
+                <button type="button" class="btn btn-secondary btn-lg" id="spotify-button" onclick="unfollow(artistid,token)">Unfollow</button>
             <% } else { %>
-                <button type="button" class="btn btn-success btn-lg" id="spotify-button">Follow</button>
+                <button type="button" class="btn btn-success btn-lg" id="spotify-button"  onclick="follow(artistid,token)">Follow</button>
             <% } %>
         <% } %>
 
@@ -102,6 +104,8 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="script/bootstrap.min.js"> </script>
+    <script src="script/follow.js"></script>
+    <script src="script/unfollow.js"></script>
 
     <script>
 

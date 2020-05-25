@@ -1,6 +1,7 @@
-function follow(id,token) {
-    var url = "https://api.spotify.com/v1/me/following?type=artist&ids=" + id + "&"+ "access_token=" + token;
-
+function addtrack(id,token) {
+    
+    var url = "https://api.spotify.com/v1/me/player/play" + "&" + +id +"]}" + "&"+ "access_token=" + token;
+    //fai set request header 
     var httpRequest = new XMLHttpRequest();
     httpRequest.onreadystatechange = handleResponse;
     httpRequest.open("PUT",url,false);
@@ -10,6 +11,5 @@ function follow(id,token) {
 
 function handleResponse(e){
     if (e.target.readyState == 4 && e.target.status == 200){
-        window.alert("Aggiuto ai tuoi preferiti");
     }    
 }
