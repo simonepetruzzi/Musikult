@@ -28,24 +28,28 @@
         </div>
 
     </div>
-    <script>
-        var artistid = "<%= id %>" ;
-    </script>
+
     <div class="container mid-panel">
 
+        <script>
+            var artistid = "<%= id %>" ;
+        </script>
+
         <% if(follow) { %>
-            <% if(follow[0]) { %>
-                <button type="button" class="btn btn-secondary btn-lg" id="spotify-button" onclick="unfollow(artistid,token)">Unfollow</button>
-            <% } else { %>
-                <button type="button" class="btn btn-success btn-lg" id="spotify-button"  onclick="follow(artistid,token)">Follow</button>
-            <% } %>
+            <div id = "spotify-button">
+                <% if(follow[0]) { %>
+                    <button type="button" class="btn btn-secondary btn-lg rounded-pill" onclick="unfollow(artistid,token)">Unfollow</button>
+                <% } else { %>
+                    <button type="button" class="btn btn-success btn-lg rounded-pill"  onclick="follow(artistid,token)">Follow</button>
+                <% } %>
+            </div>
         <% } %>
 
         <div class="row">
             <div class = "container-fluid col-md-7">
 
                 <h1 class="display-4" style="text-align: center; 
-                                             color: rgba(0, 0, 0 0.900);
+                                             color: rgba(231, 231, 231, 0.699);
                                              padding-bottom: 30px;"> 
                     Best Songs 
                 </h1>
@@ -104,8 +108,9 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="script/bootstrap.min.js"> </script>
-    <script src="script/follow.js"></script>
+
     <script src="script/unfollow.js"></script>
+    <script src="script/follow.js"></script>
 
     <script>
 

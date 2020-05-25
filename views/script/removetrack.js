@@ -11,6 +11,6 @@ function removetrack(id,token) {
 function handleResponseRemove(e) {
     if (e.target.readyState == 4 && e.target.status == 200) {
         $("#add-to-library-button").empty();
-        $("#add-to-library-button").append('<button type="button" class="btn btn-success btn-lg" id="spotify-button" onclick="addtrack(songid,token)">Add to library</button>');
+        $("#add-to-library-button").append('<button type="button" class="btn btn-success btn-lg rounded-pill" onclick="addtrack(songid,token)">Add to library</button>');
     }    
 }
