@@ -13,13 +13,13 @@
     <%- include('partials/songHeader'); -%>
 
     <div class="container mid-panel">
-        <script>
-            var songid="<%= spotifyId %>"
-        </script>
         <div class="container-fluid row" style="padding-bottom: 40px;">
 
             <div id="add-to-library-button" class="col-3">
                 <% if(addToLibrary) { %>
+                    <script>
+                        var songid="<%= spotifyId %>"
+                    </script>
                     <% if(addToLibrary[0]) { %>
                         <button type="button" class="btn btn-secondary btn-lg rounded-pill" onclick="removetrack(songid,token)">Remove From Library</button>
                     <% } else { %>
@@ -27,10 +27,11 @@
                     <% } %>
                 <% } %>
             </div>
-
-            <div id="play-button" class="col-3">
-                <button type="button" class="btn btn-success btn-lg rounded-pill" id="play-button" onclick="play(songid, token)"> Play </button>
-            </div>
+            <%if(isLogged) { %>
+                <div id="play-button" class="col-3">
+                    <button type="button" class="btn btn-success btn-lg rounded-pill" id="play-button" onclick="play(songid, token)"> Play </button>
+                </div>
+            <% } %> 
         </div>
         
 

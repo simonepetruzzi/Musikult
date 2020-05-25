@@ -18,7 +18,14 @@ router.get('/', function(req, res) {
             genius.getSongInfo(req.query.id, function(obj) {
                 db.getLyrics(req.query.id, obj.title, obj.primary_artist.name, function(obj2) {
                     spotify.getAddToLibrary(token, obj.title, function(obj3) {
-                        res.render('song', {info: obj, lyrics: obj2, token: token, addToLibrary: obj3, spotifyId: spotifyId});
+                        res.render('song', {
+                            info: obj, 
+                            lyrics: obj2, 
+                            token: token, 
+                            addToLibrary: obj3, 
+                            spotifyId: spotifyId,
+                            isLogged: true
+                        });
                     });
                 });
             });
@@ -27,7 +34,13 @@ router.get('/', function(req, res) {
     else {
         genius.getSongInfo(req.query.id, function(obj) {
             db.getLyrics(req.query.id, obj.title, obj.primary_artist.name, function(obj2) {
-                res.render('song', {info: obj, lyrics: obj2, token: null, addToLibrary: null});
+                res.render('song', {
+                    info: obj, 
+                    lyrics: obj2, 
+                    token: null, 
+                    addToLibrary: null,
+                    isLogged: false
+                });
             })
         });
     }

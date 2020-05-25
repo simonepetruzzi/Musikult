@@ -19,10 +19,20 @@ router.get('/', function(req, res) {
                 genius.getArtistInfo(new_id, function(obj) {
                     if(token) {
                         spotify.getRelatedArtistsWithId(token, id, function(obj2) {
-                            res.render('artist', {info: obj, related_artists: obj2,follow: obj3,id :ids});
+                            res.render('artist', {
+                                info: obj, 
+                                related_artists: obj2,
+                                follow: obj3,
+                                id :ids,
+                                isLogged: true
+                            });
                         });
                     }
-                    else res.render('artist', {info: obj, related_artists: null});
+                    else res.render('artist', {
+                        info: obj, 
+                        related_artists: null,
+                        isLogged: false
+                    });
                 }); 
             });
         });
@@ -34,12 +44,23 @@ router.get('/', function(req, res) {
                 genius.geniusToSpotifyArtistId(token, id, function(spotifyId) {
                     spotify.getRelatedArtistsWithoutId(token, obj.artist.name, function(obj2) {
                         spotify.spotifyfollow(token, spotifyId, function(obj3) {
-                            res.render('artist', {info: obj, related_artists: obj2, follow: obj3, id: spotifyId });
+                            res.render('artist', {
+                                info: obj, 
+                                related_artists: obj2, 
+                                follow: obj3, 
+                                id: spotifyId,
+                                isLogged: true
+                            });
                         });
                     });
                 })
             }
-            else res.render('artist', {info: obj, related_artists: null, follow: null});
+            else res.render('artist', {
+                info: obj, 
+                related_artists: null, 
+                follow: null,
+                isLogged: false
+            });
         });
     }
 });
