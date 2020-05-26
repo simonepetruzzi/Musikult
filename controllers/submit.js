@@ -6,12 +6,19 @@ const db = require("../utilities/db.js");
 var router = express.Router();
 
 router.use(bodyparser.urlencoded({extended: false}));
-
+ 
 router.post('/', function(req, res) {
-    
-    db.insertLyrics(req.query.id, req.body.lyrics);
-    res.render('thankPage', {id:req.query.id});
-    
+    var token = req.query.access_token;
+    if(token){
+        db.insertLyrics(req.query.id, req.body.lyrics);
+        res.render('thankPage', {id:req.query.id, isLogged:true});
+
+    }
+    else {
+        db.insertLyrics(req.query.id, req.body.lyrics);
+        res.render('thankPage', {id:req.query.id, isLogged:false});
+    }
+
 });
 
 module.exports = router;
