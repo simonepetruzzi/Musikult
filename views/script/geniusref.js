@@ -10,7 +10,6 @@ function geniusRef(artist,song) {
             song = song.slice(0,i)
         }
     }
-    console.log(song);
     artist = artist.replace(" ","%20");
     song = song.replace(" ","%20");
 
@@ -24,7 +23,7 @@ function geniusRef(artist,song) {
 };
 
 function handleResponse(e){
-    if (e.target.readyState == 4 && e.target.status == 200){
+    if (e.target.readyState == 4 && e.target.status == 200) {
         var id =JSON.parse(e.target.responseText)//.response.hits[0].result.id;
         
         id=id.response.hits[0].result.id;
