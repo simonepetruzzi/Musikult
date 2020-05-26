@@ -38,15 +38,6 @@
 
 }
 
-.header-image {
-
-    position: absolute;
-    object-fit: cover;
-    width: 100%;
-    height: 400px;
-
-}
-
 .carousel-img {
 
     object-fit: cover;
@@ -80,6 +71,5 @@
 .gfont {
 
     font-family: 'Sarabun', sans-serif;
-    font-size: 100px;
 
 }
