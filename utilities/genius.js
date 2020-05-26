@@ -283,7 +283,7 @@ exports.geniusToSpotifySongId = function(token, id, func) {
 			
 			spotify.searchSong(token, JSON.parse(body).response.song.title, function(ids) {
 				func(ids);
-			});
+			}, JSON.parse(body).response.song.primary_artist.name);
 
 		}
 

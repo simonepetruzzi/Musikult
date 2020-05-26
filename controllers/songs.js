@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
         genius.geniusToSpotifySongId(token, id, function(spotifyId) {
             genius.getSongInfo(req.query.id, function(obj) {
                 db.getLyrics(req.query.id, obj.title, obj.primary_artist.name, function(obj2) {
-                    spotify.getAddToLibrary(token, obj.title, function(obj3) {
+                    spotify.getAddToLibrary(token, spotifyId, function(obj3) {
                         res.render('song', {
                             info: obj, 
                             lyrics: obj2, 
