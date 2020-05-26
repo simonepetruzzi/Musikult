@@ -1,4 +1,4 @@
-<!-- SONG PAGE TEMPLATE -->
+<!-- SONG PAGE -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +10,8 @@
 
     <%- include('partials/navbar'); -%>
 
-    <img src=<%= info.header_image_url %> class="header-image">
+    <!-- HEADER WITH THUMBNAIL IMAGE AND ARTIST'S IMAGE -->
+    <img src= <%= info.header_image_url %> class="header-image">
 
     <div class="container-fluid" style="position: relative;">
         <div class="row justify-content-start" style="padding-top: 100px;">
@@ -40,7 +41,9 @@
     
     </div>
 
+    <!-- MIDDLE PANEL WHICH CONTAINS BUTTONS, LYRICS, PLAYER, DESCRIPTION, OTHER INFOS -->
     <div class="container mid-panel">
+        <!-- BUTTONS -->
         <div class="container-fluid row" style="padding-bottom: 40px;">
 
             <div id="add-to-library-button" class="col-3">
@@ -64,7 +67,10 @@
         
 
         <div class="row">
+
+            <!-- LYRICS AND INFOS ABOUT PRODUCTION AND WRITERS OF THE SONG -->
             <div class = "container-fluid col-md-7">
+
                 <% if (lyrics) { %>
                     <p class = "lead lyrics"> <% lyrics.forEach(line => { %>
                         <%= "" + line %> <br>
@@ -74,9 +80,10 @@
                         <a href="javascript:showTextArea()"> Write them now! </a>
                     </p>
 
+                    <!-- FORM -->
                     <form action="" method="post" style="display: none">
                         <div class="form-group row">
-                            <textarea class="form-control" rows="20" placeholder="Write your lyrics here" name="lyrics"></textarea>
+                            <textarea class="form-control" rows="20" placeholder="Write your lyrics here" name="lyrics" required></textarea>
                         </div>
                         <div class="form-group row">
                             <button type="submit" class="btn btn-primary">Send</button>
@@ -105,14 +112,17 @@
                 </div>
                 
             </div>
-            
+          
             <div class="container-fluid col-md-5">
+
+                <!-- YOUTUBE PLAYER -->
                 <div id="player" video= <% info.media.forEach(media => { %>
                     <% if (media.provider == 'youtube') { %>
                         <%= media.url %>
                     <% } %>
                 <% }) %> ></div>
 
+                <!-- DESCRIPTION -->
                 <p class = "description"> <% info.description.forEach(paragraph => { %>
                     <%= "" + paragraph %> <br>
                 <% }) %> </p>
@@ -125,18 +135,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="script/bootstrap.min.js"> </script>
 
-    <script src="script/script.js"></script>
     <script src="script/player.js"></script>
-    <script src="script/removetrack.js"></script>
-    <script src="script/addtrack.js"></script>
-    <script src="script/play.js"></script>
+    <script src="script/song_buttons.js"></script>
     
     <script>
-        var url = new URL(window.location.href);
-        var token = url.searchParams.get("access_token");
-    </script>
-
-    <script> 
 
         var url = "http://localhost:3000/submit" + window.location.search;
 
@@ -153,5 +155,4 @@
 
 </body>
 </html>
-
 

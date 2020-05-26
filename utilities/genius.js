@@ -1,14 +1,9 @@
-const express = require('express');
 const querystring = require('querystring');
 const request = require('request');
 const spotify = require('./spotify');
 
 const keys = require('./keys');
 
-const app = express();
-
-const client_id = keys.getGeniusClientId();
-const client_secret = keys.getGeniusClientSecret();
 const access_token = keys.getGeniusAccessToken();
 
 const API = "https://api.genius.com";
@@ -63,7 +58,7 @@ exports.getArtistInfo = function(id, func) {
 
 }
 
-// Genius getter for a specific artist popular songs
+// Genius getter for a specific artist's popular songs
 getArtistSongs = function(id, func) {
 
 	var options = {						// https://api.genius.com/songs/:id/songs 
@@ -104,33 +99,16 @@ getArtistSongs = function(id, func) {
 // This function cleans the result of the API call as Genius returns a description of the track
 // that is not easy to use in our scope
 function descriptionCleaning(info, func) {
-	if(info.description.plain != '?') {
-		//var description = descriptionCleaningRecursive(info.description.dom);  //not used
-		info.description = filterDescription(info.description.plain);
 
+	if(info.description.plain != '?') {
+		info.description = filterDescription(info.description.plain);
 	}
-	else {info.description = ["No description available"]}
+
+	else {
+		info.description = ["No description available"]
+	}
 
 	func(info);
-}
-
-//NOT USED: REPLACED BY THE USAGE OF THE QUERY PARAMETER TEXT_FORMAT IN SEARCH
-// Recursive function to clean all the elements of the dom
-function descriptionCleaningRecursive(element) {
-	if(element.tag == 'br' || element.tag == 'img' || element.tag == 'hr') {
-		return "\n";
-	}
-	else if(element.tag) {
-		var desc = "";
-		element.children.forEach(children => {
-			desc += descriptionCleaningRecursive(children, false);
-			if(element.tag == 'root') desc += '\n';
-		}); 
-		return desc;
-	}
-	else {
-		return element;
-	}
 }
 
 // Puts the cleaned description in a list to be used in a easier way
@@ -207,16 +185,21 @@ function geniusFilter(info) {					    //info is Genius JSON
 
 }
 
+/******************************************************************************/
+/*                               ID CONVERTERS                                */
+/******************************************************************************/
+
 // To convert ids we have to search the best artist song in the genius search engine and 
 // retrive the informations about the artist 
 exports.spotifyToGeniusArtistId = function(token, id, func) {
 
-	console.log("requesting spotify for artist " + id + "best song");
 	spotify.getBestSong(token, id, function(song_name, artist_name) {
 
-		song_name = song_name.substring(0, song_name.lastIndexOf('('));
-
-		console.log("spotify responded with " + song_name + " from " + artist_name);
+		// removes everything that is after the '(' symbol in the song title
+		// this is used to remove featurings and unnecessary parts to the title of the song
+		// because those parts could cause the search to fail
+		if(song_name.includes('('))
+			song_name = song_name.substring(0, song_name.lastIndexOf('('));
 
 		var options = {								/* https://api.genius.com/search?q=:query */
 			url: API + "/search?" + querystring.stringify({ q: song_name + " " + artist_name }), 
@@ -229,7 +212,6 @@ exports.spotifyToGeniusArtistId = function(token, id, func) {
 		request(options, function callback(error, response, body) {
 	
 			if (!error && response.statusCode == 200) {
-				console.log("found artist: " + JSON.parse(body).response.hits[0].result.primary_artist.name);
 				var new_id = JSON.parse(body).response.hits[0].result.primary_artist.id;
 				func(new_id);
 			}
@@ -241,6 +223,7 @@ exports.spotifyToGeniusArtistId = function(token, id, func) {
 	});
 }
 
+// To convert artist ids from genius we just search for the artist in the spotify search engine
 exports.geniusToSpotifyArtistId = function(token, id, func) {
 
 	var options = {
@@ -267,6 +250,7 @@ exports.geniusToSpotifyArtistId = function(token, id, func) {
 	
 }
 
+// to convert songs we search for the song with the spotify search and retrieve first result
 exports.geniusToSpotifySongId = function(token, id, func) {
 
 	var options = {

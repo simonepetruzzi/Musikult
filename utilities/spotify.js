@@ -2,10 +2,7 @@ const express = require('express');
 const request = require('request');
 const querystring = require('querystring');
 
-const APIt = "https://api.spotify.com/v1/me/top/tracks";
-const APIa = "https://api.spotify.com/v1/me/top/artists";
-
-exports.getRelatedArtistsWithId = function(token, id, func) {
+exports.getRelatedArtists = function(token, id, func) {
 
     var options = {
         url: "https://api.spotify.com/v1/artists/" + id + "/related-artists",
@@ -24,29 +21,7 @@ exports.getRelatedArtistsWithId = function(token, id, func) {
     });
 }
 
-exports.getRelatedArtistsWithoutId = function(token, artist, func) {
-
-    searchArtist(token, artist, function(id) {
-
-        var options = {
-            url: "https://api.spotify.com/v1/artists/" + id + "/related-artists",
-            headers : {
-                'Authorization': 'Bearer ' + token
-            }
-        };
-        
-        request.get(options, function callback(error, response, body) {
-            if (!error && response.statusCode == 200) {
-                func(JSON.parse(body).artists);
-            }
-    
-            else 
-                console.log(error);
-        });
-    })
-}
-
-exports.getAddToLibrary = function(token, id, func) {
+exports.isInLibrary = function(token, id, func) {
 
     var options = {
         url: "https://api.spotify.com/v1/me/tracks/contains?ids=" + id,
@@ -131,7 +106,7 @@ function searchSong(token, song, func, artist = null) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body).tracks.items[0];
             if(info) {
-                if(!artist || toString(artist).toLowerCase == (info.artists[0].name).toLowerCase)
+                if(!artist || toString(artist).toLowerCase == toString(info.artists[0].name).toLowerCase)
                     func(info.id);
                 else 
                     func(null);
@@ -147,9 +122,10 @@ function searchSong(token, song, func, artist = null) {
 
 }
 
-exports.spotifyIDTracks=function(token,func){
+// get user's top tracks
+exports.getTopTracks=function(token,func){
     var options = {
-        url: APIt,
+        url: "https://api.spotify.com/v1/me/top/tracks",
         headers : {
             'Authorization': 'Bearer ' + token
         }
@@ -158,7 +134,6 @@ exports.spotifyIDTracks=function(token,func){
     request.get(options, function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
             var b = JSON.parse(body);
-            //console.log(b);
             if(b.total !=0){
                 var x = tracksFilter(JSON.parse(body));
                 func(x);
@@ -173,9 +148,11 @@ exports.spotifyIDTracks=function(token,func){
             console.log(error);    
     });
 };
-exports.spotifyIDArtists=function(token,func){
+
+// Get user's top artists
+exports.getTopArtists=function(token,func){
     var options = {
-        url: APIa,
+        url: "https://api.spotify.com/v1/me/top/artists",
         headers : {
             'Authorization': 'Bearer ' + token
         }
@@ -184,7 +161,7 @@ exports.spotifyIDArtists=function(token,func){
 
         if (!error && response.statusCode == 200) {
             var a = JSON.parse(body)
-            if(a.total != 0) {
+            if(a.total != 0) {              // if there are no artists it returns null
                 var y = artistFilter(JSON.parse(body));
                 func(y);
             }
@@ -238,7 +215,11 @@ function tracksFilter(info1){
     }
     return y
 }
-exports.spotifyUserInformation=function(token,func){
+
+// get user's account informations
+// used to get user's profile image and name
+exports.getUserInformations = function(token,func) {
+
     var options = {
         url: "https://api.spotify.com/v1/me",
         headers : {
@@ -266,14 +247,13 @@ function informationFilter(info2){
     if(info2.images[0]) image = info2.images[0].url; 
 
     z.information.push({
-        country : info2.country,
         name : info2.display_name,
         image : image
     });
     return z;
     
 }
-exports.spotifyfollow=function(token,id,func){
+exports.isFollowed=function(token,id,func){
     var options = {
         url: "https://api.spotify.com/v1/me/following/contains?type=artist&ids=" + id,
         headers : {
@@ -291,6 +271,7 @@ exports.spotifyfollow=function(token,id,func){
     });
 }
 
+// get spotify's new releases (same for every account)
 exports.getNewReleases = function(token, func) {
 
     var options = {
@@ -299,15 +280,16 @@ exports.getNewReleases = function(token, func) {
             'Authorization': 'Bearer ' + token,
         }
     };
-    request.get(options, function callback(error, response, body) {		
+    request.get(options, function callback(error, response, body) {	
+
         if (!error && response.statusCode == 200) {
             var singles = [];
             var items = JSON.parse(body).albums.items;
             for(var i = 0; i < items.length; i++) {
-                if(items[i].album_type == 'single') {
+                if(items[i].album_type == 'single') {   // return only singles 
                     singles.push(items[i]);
                     if(singles.length >= 5) break; 
-                }       
+                }  
             }
             func(singles);
         }
@@ -315,8 +297,7 @@ exports.getNewReleases = function(token, func) {
         else {
             console.log(error);
         }
-    });
-    
+    });    
 }
 
 exports.searchArtist = function(token, artist, func) {

@@ -4,8 +4,6 @@ const request = require('request');
 
 const keys = require('./keys');
 
-const app = express();
-
 const key = keys.getHappiKey();
 
 const API = "https://api.happi.dev/v1/music?";
@@ -62,18 +60,4 @@ function getLyrics(lyrics_api, func) {
             func(null); 
         }
 	});
-}
-
-
-// NOT USED
-function filterLyrics(string, func) {
-
-    var filtered = [""];
-    var index = 0;
-    for(var i = 0; i < string.length; i++) {
-        if(string[i] == '\n') filtered[++index] = "";
-        else filtered[index] += string[i];
-    }
-
-    func(filtered);
 }

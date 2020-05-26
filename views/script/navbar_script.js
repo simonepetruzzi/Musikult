@@ -7,24 +7,14 @@ var socket = new WebSocket('ws://localhost:4000/');
 
 ///////////////////////WEB SOCKET HANDLERS//////////////////////////////////
 
-socket.onopen = function() {
-    console.log('[WEBSOCKET] Connection with server established');
-}
-
 // When data is received
 socket.onmessage = function(event) {
-    console.log(JSON.parse(event.data));
     show(JSON.parse(event.data));  
 }
 
 // A connection could not be made
 socket.onerror = function(event) {
     console.log(event);
-}
-
-// A connection was closed
-socket.onclose = function(code, reason) {
-    console.log(code, reason);
 }
 
 // Close the connection when the window is closed
@@ -130,7 +120,7 @@ function hideBox() {
         searchBox.animate({
             
             top: '-=400px'
-            //height: "toggle"
+            
         }, 400, function() {
             searchBox.hide();
         });
@@ -143,6 +133,7 @@ function showBox() {
         searchBox.animate({
             
             top: '+=400px'
+
         }, 400);
     }
 }

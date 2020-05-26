@@ -40,9 +40,10 @@
 
 <script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
 
-<script src = '../script/navbarScript.js'></script>
+<script src = '../script/navbar_script.js'></script>
 
 <script> 
+
     var url = new URL(window.location.href);
     var token = url.searchParams.get("access_token");
     if(token) {
@@ -50,6 +51,11 @@
             $(".logo").attr("href", "http://localhost:3000?access_token=" + token);
         })
     }
+
+    function spotifyLogin() {
+        window.location.href = "http://localhost:3000/spotifyAuth/";
+    }
+
 </script>
 
 

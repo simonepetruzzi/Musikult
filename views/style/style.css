@@ -5,18 +5,25 @@ body {
     background-repeat:no-repeat;
     background-attachment:fixed;
     background-position:center;
-
     background-size: 200px;
 
     background-color: rgb(235, 235, 235); 
 
 }
-.display-2{
+.display-2 {
+
     font-family: 'Sarabun', sans-serif;
+
 }
-.display-3{
+
+.display-3 {
+
     font-family: 'Sarabun', sans-serif;
+
 }
-.display-4{
+
+.display-4 {
+
     font-family: 'Sarabun', sans-serif;
+
 }

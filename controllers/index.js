@@ -1,30 +1,32 @@
 const express = require("express");
-const fs = require("fs"); //permette di leggere il file system 
-const path = require('path'); //fornisce metodi per lavorare su percorsi del file system 
-const ws = require('../utilities/ws');
+const path = require('path');
+
+const ws = require('../utilities/ws.js');
 const spotify = require('../utilities/spotify');
 
 const router = express.Router();
 
-var projectPath = path.resolve('.');
+const projectPath = path.resolve('.');
 
-router.get("/",(req,res) => {
+router.get("/", function(req,res) {
 
 	var token = req.query.access_token;
 
+	// user has not logged in, load basic home page
 	if(!token) 
 		res.render('home', { isLogged: false });
 	
-	else{
-		spotify.spotifyIDArtists(token,function(obj) {
-			spotify.spotifyIDTracks(token,function(obj1) {
-				spotify.spotifyUserInformation(token,function(obj2) {
+	//user has logged in, load personal home page
+	else {
+		spotify.getTopArtists(token,function(topArtists) {
+			spotify.getTopTracks(token,function(topTracks) {
+				spotify.getUserInformations(token, function(userInfos) {
 					spotify.getNewReleases(token, function(releases) {
 						res.render('home', { 
-							isLogged: true , 
-							artist: obj,
-							tracks: obj1,
-							inf : obj2,
+							isLogged: true, 
+							artist: topArtists,
+							tracks: topTracks,
+							inf : userInfos,
 							newReleases: releases
 						});
 					});
@@ -32,7 +34,6 @@ router.get("/",(req,res) => {
 			});
 		});
 	}
-
 });
 
 router.use("/spotifyAuth", require("./spotifyAuth"));

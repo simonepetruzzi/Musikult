@@ -8,45 +8,50 @@ router.get('/', function(req, res) {
 
     var token = req.query.access_token;
     var id = req.query.id;
-    var ids= id.slice(0,id.length -1);
+
+    // id could be either a genius id or a spotify id;
+    // if is a spotify id its last character is an 's'
+    // if it's so, it is removed 
+    var ids = id.slice(0,id.length -1);
 
     if(id.charAt(id.length - 1) == 's') { //if id is from spotify converts it
         
         id = id.substring(0, id.length-1);
         
-        spotify.spotifyfollow(token,ids,function(obj3){
-            genius.spotifyToGeniusArtistId(token, id, function(new_id) {
-                genius.getArtistInfo(new_id, function(obj) {
-                    if(token) {
-                        spotify.getRelatedArtistsWithId(token, id, function(obj2) {
+        genius.spotifyToGeniusArtistId(token, id, function(geniusId) {
+            genius.getArtistInfo(geniusId, function(artistInfo) {
+                if(token) {
+                    spotify.isFollowed(token,ids,function(isFollowed) {
+                        spotify.getRelatedArtists(token, id, function(relatedArtists) {
                             res.render('artist', {
-                                info: obj, 
-                                related_artists: obj2,
-                                follow: obj3,
-                                id :ids,
+                                info: artistInfo, 
+                                related_artists: relatedArtists,
+                                follow: isFollowed,
+                                id : ids,
                                 isLogged: true
                             });
                         });
-                    }
-                    else res.render('artist', {
-                        info: obj, 
-                        related_artists: null,
-                        isLogged: false
                     });
-                }); 
-            });
+                }
+                else res.render('artist', {
+                    info: artistInfo, 
+                    related_artists: null,
+                    isLogged: false
+                });
+            }); 
         });
     }
+
     else { //if id is from genius 
 
-        genius.getArtistInfo(id, function(obj) {
+        genius.getArtistInfo(id, function(artistInfo) {
             if(token) {
                 genius.geniusToSpotifyArtistId(token, id, function(spotifyId) {
-                    spotify.getRelatedArtistsWithoutId(token, obj.artist.name, function(obj2) {
-                        spotify.spotifyfollow(token, spotifyId, function(obj3) {
+                    spotify.getRelatedArtists(token, spotifyId, function(relatedArtists) {
+                        spotify.isFollowed(token, spotifyId, function(obj3) {
                             res.render('artist', {
-                                info: obj, 
-                                related_artists: obj2, 
+                                info: artistInfo, 
+                                related_artists: relatedArtists, 
                                 follow: obj3, 
                                 id: spotifyId,
                                 isLogged: true
@@ -56,7 +61,7 @@ router.get('/', function(req, res) {
                 })
             }
             else res.render('artist', {
-                info: obj, 
+                info: artistInfo, 
                 related_artists: null, 
                 follow: null,
                 isLogged: false

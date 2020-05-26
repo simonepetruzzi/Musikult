@@ -1,11 +1,22 @@
-const express = require("express");
+// musikult database has one table which contains lyrics from songs
+/*
+   ______________________ 
+  |        lyrics        |
+  |______________________|
+  |  id   |    text      |
+  |_______|______________|
+
+*/
+
+
 const mysql = require("mysql");
 const keys = require("./keys.js");
 
 const happi = require("./happi.js");
 
-var password = keys.getDBPassword();
+const password = keys.getDBPassword();
 
+// create connection with the database musikult
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -13,10 +24,11 @@ var con = mysql.createConnection({
     database: 'musikult'
 });
 
+// establish connection
 con.connect(function(err) {
 
     if (err) throw err;
-    else console.log("Connected to database!\n");
+    else log("Connected to database!\n");
 
 });
 
@@ -24,7 +36,8 @@ con.connect(function(err) {
 function insertLyrics(id,text) {
 
     var value = "";
-    for(var i = 0; i < text.length; i++) {     //cleans text
+    // this part swaps "'" with "§" to avoid errors and basic SQL injection
+    for(var i = 0; i < text.length; i++) {    
         if(text[i] == "'") 
             value += '§';
         else 
@@ -36,8 +49,8 @@ function insertLyrics(id,text) {
         if (err) throw err;
 
         console.log("________________________________");
-        console.log("Inserted 1 record");
-        console.log("________________________________");
+        log("Inserted 1 record");
+        console.log("________________________________\n");
     });
     
 }
@@ -46,32 +59,40 @@ exports.insertLyrics = function(id, text) { insertLyrics(id, text); }
 
 exports.getLyrics = function(id, song_name, artist_name, callback) {
 
-    console.log("\nRequestin lyrics for the song " + song_name + " by " + artist_name + 
+    log("Requesting lyrics for the song " + song_name + " by " + artist_name + 
                 "; id: " + id + "\n");
 
+    // get lyrics of the song with id :id
     var sql = "SELECT text FROM lyrics WHERE id = " + id;
     con.query(sql, function (err, result) {
         if (err) throw err;
 
+        //id is unique so there is a max of one result
+        //if lyrics are in the database, retrieve them
         if(result[0]) {
-            console.log("Found a result in database\n");
+            log("Found a result in database\n");
             filterLyrics(result[0].text, function(filtered) {
                 callback(filtered);
             })
         }
-        else {
-            console.log("No result found in database");
-            console.log("Requesting lyrics to Happi\n");
 
+        // if nothing is found
+        else {
+            log("No result found in database");
+            log("Requesting lyrics to Happi\n");
+
+            // makes a lyrics request to happi
             happi.getSongInfo(song_name, artist_name, function(lyrics) {
 
+                // if lyrics are found
                 if(lyrics) {
 
-                    console.log("Lyrics found");
-                    console.log("Inserting data in the database\n");
+                    log("Lyrics found");
+                    log("Inserting data in the database\n");
 
+                    // inserts lyrics in the database to make minimum amount of api calls
                     insertLyrics(id, lyrics);
-                    console.log("Lyrics inserted in database\n");
+                    log("Lyrics inserted in database\n");
 
                     filterLyrics(lyrics, function(filtered) {
                         callback(filtered);
@@ -79,7 +100,7 @@ exports.getLyrics = function(id, song_name, artist_name, callback) {
                     
                 }
                 else {
-                    console.log("Lyrics not found\n");
+                    log("Lyrics not found\n");
                     callback(null);
                 }
             });
@@ -87,6 +108,7 @@ exports.getLyrics = function(id, song_name, artist_name, callback) {
     });
 }
 
+// swaps again all the '§' symbols with "'"
 function filterLyrics(string, func) {
 
     var filtered = [""];
@@ -98,4 +120,8 @@ function filterLyrics(string, func) {
     }
 
     func(filtered);
+}
+
+function log(msg) {
+    console.log("[DATABASE]: " + msg);
 }
