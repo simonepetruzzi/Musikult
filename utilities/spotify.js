@@ -46,26 +46,26 @@ exports.getRelatedArtistsWithoutId = function(token, artist, func) {
     })
 }
 
-exports.getAddToLibrary = function(token, song, func) {
+exports.getAddToLibrary = function(token, id, func) {
 
-    searchSong(token, song, function(id) {
-
-        var options = {
-            url: "https://api.spotify.com/v1/me/tracks/contains?ids=" + id,
-            headers : {
-                'Authorization': 'Bearer ' + token
-            }
-        };
+    var options = {
+        url: "https://api.spotify.com/v1/me/tracks/contains?ids=" + id,
+        headers : {
+            'Authorization': 'Bearer ' + token
+        }
+    };
         
-        request.get(options, function callback(error, response, body) {
-            if (!error && response.statusCode == 200) {
-                func(JSON.parse(body));
-            }
+    request.get(options, function callback(error, response, body) {
+        if (!error && response.statusCode == 200) {
+            func(JSON.parse(body));
+        }
     
-            else 
-                console.log("Error in add to library: " + response.statusCode + " " + response.statusMessage);
-        });
-    })
+        else {
+            console.log("Error in add to library: " + response.statusCode + " " + response.statusMessage);
+            func(null);
+        }
+    });
+
 }
 
 exports.getBestSong = function(token, id, func) {
@@ -95,7 +95,7 @@ exports.getBestSong = function(token, id, func) {
     
 }
 
-function searchArtist(token, artist, func) {
+function searchArtist(token, artist, func, song = null) {
 
     var options = {
         url: "https://api.spotify.com/v1/search?type=artist&q="+artist,
@@ -106,7 +106,10 @@ function searchArtist(token, artist, func) {
     
     request.get(options, function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
-            func(JSON.parse(body).artists.items[0].id);
+            if(JSON.parse(body).artists.items[0])
+                func(JSON.parse(body).artists.items[0].id);
+            else 
+                func(null);
         }
 
         else 
@@ -115,7 +118,7 @@ function searchArtist(token, artist, func) {
 
 }
 
-function searchSong(token, song, func) {
+function searchSong(token, song, func, artist = null) {
 
     var options = {
         url: "https://api.spotify.com/v1/search?type=track&" + querystring.stringify({ q: song }),
@@ -126,7 +129,16 @@ function searchSong(token, song, func) {
     
     request.get(options, function callback(error, response, body) {
         if (!error && response.statusCode == 200) {
-            func(JSON.parse(body).tracks.items[0].id);
+            var info = JSON.parse(body).tracks.items[0];
+            if(info) {
+                if(!artist || toString(artist).toLowerCase == (info.artists[0].name).toLowerCase)
+                    func(info.id);
+                else 
+                    func(null);
+            }
+            else {
+                func(null);
+            }
         }
 
         else 
@@ -172,7 +184,7 @@ exports.spotifyIDArtists=function(token,func){
 
         if (!error && response.statusCode == 200) {
             var a = JSON.parse(body)
-            if(a.total != 0){
+            if(a.total != 0) {
                 var y = artistFilter(JSON.parse(body));
                 func(y);
             }

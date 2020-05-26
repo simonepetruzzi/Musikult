@@ -44,7 +44,7 @@
         <div class="container-fluid row" style="padding-bottom: 40px;">
 
             <div id="add-to-library-button" class="col-3">
-                <% if(addToLibrary) { %>
+                <% if(addToLibrary && spotifyId) { %>
                     <script>
                         var songid="<%= spotifyId %>"
                     </script>
@@ -55,7 +55,7 @@
                     <% } %>
                 <% } %>
             </div>
-            <%if(isLogged) { %>
+            <%if(isLogged && spotifyId) { %>
                 <div id="play-button" class="col-3">
                     <button type="button" class="btn btn-success btn-lg rounded-pill" id="play-button" onclick="play(songid, token)"> Play </button>
                 </div>
