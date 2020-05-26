@@ -1,44 +1,14 @@
 
-body{
+body {
+
     background-image: url(../img/icon.png);
     background-repeat:no-repeat;
     background-attachment:fixed;
     background-position:center;
 
     background-size: 200px;
-}
 
-.icon {
-    width: 40px;
-    height: 40px
-}
-
-.background-logo {
-    position: fixed;
-
-    width: 150px;
-    height: 150px;
-
-    left: 50%;
-    right: -75px;
-}
-
-#bigcontainer {
-    position: relative;
-    padding-right: 0px;
-    padding-left: 0px;
-}
-
-.background-canvas {
-   /* background-color: #0a2638;*/
     background-color: rgb(235, 235, 235); 
-}
- 
-#background {
-    position: fixed;
-
-    overflow: hidden;
-    z-index: -1;
 
 }
 
@@ -47,30 +17,10 @@ body{
     padding-bottom: 20px;
     text-align: center;
     font-family: 'Sarabun', sans-serif;
-    font-size: 100px;
+
 }
 
-.artist{
-	color: white;
-}
-
-.artist-card {
-    width: 300px;
-    height: 400px;
-}
-
-.song-card {
-    width: 300px;
-    height: 400px;
-}
-
-.card1{
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-.header-image {
+.profile-image {
 
     object-fit: cover;
     height: 200px;
@@ -79,33 +29,72 @@ body{
 
 }
 
-.carousel-img {
+.artist-card {
+
+    width: 300px;
+    height: 400px;
+
+}
+
+.song-card {
+
+    width: 300px;
+    height: 400px;
+
+}
+
+.card-img {
+
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+
+}
+
+.header-image {
+
+    position: absolute;
     object-fit: cover;
     width: 100%;
     height: 400px;
+
+}
+
+.carousel-img {
+
+    object-fit: cover;
+    width: 100%;
+    height: 400px;
+
 }
 
 .card-title {
+
     position: relative; 
     top: -200px;
     color: rgba(255, 255, 255, 0.8);
     text-align: center;
     font-size: 30px;
     display: none
+
 }
 
 .card-subtitle {
+
     position: relative; 
     top: -175px;
     color: rgba(255, 255, 255, 0.65);
     text-align: center;
     font-size: 25x;
     display: none
+
 }
 
-.gfont{
+.gfont {
+
     font-family: 'Sarabun', sans-serif;
     font-size: 100px;
+
 }
 
 

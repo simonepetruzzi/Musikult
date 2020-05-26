@@ -5,11 +5,33 @@
 <head>
     <%- include('partials/head'); -%>
 </head>
-<body class="background-canvas">
+<body>
 
     <%- include('partials/navbar'); -%>
 
-    <%- include('partials/bigContainer'); %> 
+    <div class="container-fluid">    
+
+        <% if(!isLogged) { %>
+            <div class = "row align-items-center body-row" style="height: 100vh;">
+                <div class="page-title col-12">
+                    <h1 class="display-2" style="color:rgb(0, 0, 0, 0.9);">
+                        Musikult 
+                    </h1>
+                    <h1 class="display-3" style="color:rgba(40, 40, 40, 0.9); margin-top: 320px;">
+                        Your music portal
+                    </h2>
+                </div>
+            </div>     
+        
+        <% } %>
+        
+    </div>
+    
+    <% if(isLogged) { %>
+            
+        <%- include('partials/homeContainer'); %>
+    
+    <% } %> 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="script/bootstrap.min.js"> </script>
