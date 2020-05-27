@@ -1,3 +1,4 @@
+<!--CONTAINER WITH SPOTIFY ACCOUNT INFOS-->
 <div class="container-fluid" style= "padding-bottom: 120px">
 	<div class="row align-items-center" style="padding-top: 100px; padding-left: 50px;" >
 		<div class= "container song-title col-9">
@@ -13,7 +14,7 @@
 </div>
 
 <div class="container">
-
+	<!--BOOTSTRAP CAROUSEL WITH NEW SPOTIFY RELEASES -->
 	<h1 class="display-4" style="padding-bottom: 10px; color:rgba(0, 0, 0, 0.9)">
 		New Releases 
 	</h1>
@@ -37,7 +38,7 @@
 			<% } %>
 		</div>
 	</div>
-
+	<!--BOOTSTRAP CARDS WITH LOGGED ACCOUNT SPOTIFY FAVOURITE ARTISTS-->
 	<div class="container-fluid justify-content-center" style="margin-top: 100px;">
 
 		<% if(artist != null) { %>
@@ -73,7 +74,7 @@
 		<% } %>
 
 	</div>	
-
+	<!--BOOTSTRAP CARDS WITH LOGGED ACCOUNT SPOTIFY FAVOURITE SONGS -->
 	<div class="container-fluid justify-content-center">
 
 		<% if(tracks != null) { %> 

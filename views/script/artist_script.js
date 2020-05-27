@@ -1,6 +1,6 @@
 var url = new URL(window.location.href);
 var token = url.searchParams.get("access_token");
-
+//animation for best songs
 $(document).ready(function() {
     $(".song-div").mouseenter(function(){
         $(this).css("background-color", "rgba(143, 143, 143, 0.199)");
@@ -8,7 +8,7 @@ $(document).ready(function() {
     $(".song-div").mouseleave(function(){
         $(this).css("background-color", "rgba(143, 143, 143, 0)");
     });
-
+    //redirecting to selected song page with the token if you logged in or without token if not
     $(".song-div").click(function() {
         if(token)
             window.location.href = "http://localhost:3000/songs?access_token=" + token + "&id=" + $(this).attr("id");
@@ -25,6 +25,7 @@ var width = Math.max( body.offsetWidth,
 var n = 33;
 var maxn = (parseInt($(".flex-row").attr("number")))*300 - width + 300;
 
+//animation to move right or left on releated artists
 $(document).ready(function() {
     $(".left").click(function() {
         if(n < 33) {
@@ -42,7 +43,7 @@ $(document).ready(function() {
             });
         }
     });
-
+    //animation for releated artists buttons(right and left)
     $(".left").mouseenter(function() {
         $(this).css("background-color", "rgba(128, 128, 128, 0.750)");
         $(this).children("p").css("font-size", "34px");
@@ -67,7 +68,7 @@ $(document).ready(function() {
         $(this).children("p").css("padding-top", "62px");
         $(this).children("p").css("color", "rgba(116, 116, 116, 0.6)");
     });
-
+    //animation on a single releated artist
     $(".related-artist").mouseenter(function() {
         $(this).children(".related-artist-img").css({
             filter: "brightness(50%)",
@@ -80,7 +81,7 @@ $(document).ready(function() {
         })
         $(this).children(".related-artist-text").hide();
     });
-
+    //redirect to the selected releated artist page 
     $(".related-artist").click(function() {
         window.location.href = "http://localhost:3000/artists" + "?access_token=" + token + "&" + "id=" + $(this).attr("id") + "s";
     });
