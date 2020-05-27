@@ -5,7 +5,7 @@ body {
 .header-image {
 
     position: absolute;
-    object-fit: cover;
+    object-fit: cover; /*does not deform the image when you change original size */
     width: 100%;
     height: 450px;
 
@@ -16,7 +16,7 @@ body {
     width: 100%;
     height: auto; 
     border: 2px solid #ddd;
-    border-radius: 8px;
+    border-radius: 8px; /*curve*/
 
 }
 
@@ -84,7 +84,7 @@ body {
 .arrow {
     font-size: 30px;
     padding-top: 62px;
-    transform: scale(1, 3);
+    transform: scale(1, 3); /*arrows for releated artist*/ 
     color: rgb(116, 116, 116, 0.6);
 }
 

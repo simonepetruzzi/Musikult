@@ -46,12 +46,9 @@
   height: 40px
 }
 
-#search-field { 
-}
-
 .search-box {
     position: absolute;
-    z-index: 1000;
+    z-index: 1000; /*priority of an element on z axi */
     height: 400px;
     background-color: white;
     border: black;
