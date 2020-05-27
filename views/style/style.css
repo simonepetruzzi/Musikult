@@ -9,6 +9,8 @@ body {
 
     background-color: rgb(235, 235, 235); 
 
+    overflow-x: hidden;
+
 }
 .display-2 {
 
