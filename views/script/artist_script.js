@@ -19,14 +19,14 @@ $(document).ready(function() {
 
 var body = document.body,
     html = document.documentElement;
-var width = Math.max( body.offsetWidth, 
-                      html.clientWidth, html.offsetWidth);
+var width = Math.max(body.offsetWidth, html.clientWidth, html.offsetWidth);
 
 var n = 33;
 var maxn = (parseInt($(".flex-row").attr("number")))*300 - width + 300;
 
 //animation to move right or left on releated artists
 $(document).ready(function() {
+    //for each the row scrolls for 600px
     $(".left").click(function() {
         if(n < 33) {
             n += 600;
