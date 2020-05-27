@@ -46,6 +46,9 @@
   height: 40px
 }
 
+#search-field { 
+}
+
 .search-box {
     position: absolute;
     z-index: 1000;
