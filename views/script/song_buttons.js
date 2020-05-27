@@ -1,5 +1,5 @@
 /******************************PLAY*********************************/
-
+//call to play the current song on spotify players
 function play(id, token) {
     
     var body = {
@@ -25,7 +25,7 @@ function handleResponsePlay(e) {
 
 
 /*****************************REMOVE********************************/
-
+//call to remove current song from spotify favourite songs
 function removetrack(id,token) {
     var url = "https://api.spotify.com/v1/me/tracks?ids=" + id + "&"+ "access_token=" + token;
 
@@ -35,7 +35,7 @@ function removetrack(id,token) {
     httpRequest.send();
 
 }
-
+//if call goes well changes the botton from remove to add
 function handleResponseRemove(e) {
     if (e.target.readyState == 4 && e.target.status == 200) {
         $("#add-to-library-button").empty();
@@ -45,7 +45,7 @@ function handleResponseRemove(e) {
 
 
 /*******************************ADD*********************************/
-
+//call for adding current song to spotify favourite songs
 function addtrack(id,token) {
     var url = "https://api.spotify.com/v1/me/tracks?ids=" + id + "&"+ "access_token=" + token;
 
@@ -55,7 +55,7 @@ function addtrack(id,token) {
     httpRequest.send();
    
 }
-
+//if call goes well changes the botton from add to remove
 function handleResponseAdd(e) {
     if (e.target.readyState == 4 && e.target.status == 200) {
         $("#add-to-library-button").empty();

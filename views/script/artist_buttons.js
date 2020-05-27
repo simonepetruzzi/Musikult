@@ -1,5 +1,5 @@
 /****************************FOLLOW********************************/
-
+//call for adding the current artist to Spotify favourite artists
 function follow(id,token) {
     var url = "https://api.spotify.com/v1/me/following?type=artist&ids=" + id + "&"+ "access_token=" + token;
 
@@ -20,7 +20,7 @@ function handleResponseFollow(e){
 
 
 /***************************UNFOLLOW*******************************/
-
+//call to delete from spotify favourite artists the current artist
 function unfollow(id,token) {
     var url = "https://api.spotify.com/v1/me/following?type=artist&ids=" + id + "&"+ "access_token=" + token;
 

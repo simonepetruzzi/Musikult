@@ -1,6 +1,6 @@
 var url = new URL(window.location.href);
 var token = url.searchParams.get("access_token");
-	
+//animation on favourite artists card and redirect to the selected artist
 $(document).ready(function(){
     $(".artist-card").mouseenter(function() {
         $(this).children(".card-img").css({
@@ -19,7 +19,7 @@ $(document).ready(function(){
     });
 
 });
-
+//animation on favourite songs cards and redirect to the selected song
 $(document).ready(function(){
     $(".song-card").mouseenter(function() {
         $(this).children(".card-img").css({
@@ -42,7 +42,7 @@ $(document).ready(function(){
         
     });
 });
-
+//animation on carousel and redirect to the selected song 
 $(document).ready(function() {
     $(".carousel").mouseenter(function() {
         $(this).children(".carousel-inner").children().each(function() {
@@ -67,7 +67,7 @@ $(document).ready(function() {
 
 const access_token = "kG91TrvmqYf06aeYAOpgxFTXcmUAJ0N0wRCtbn7m-tHXsfGVDWULJAGro3dbQWfS";
 const API = "https://api.genius.com";
-
+//call to get genius song id passing artist and song from spotify
 function geniusRef(artist,song) {
     for(let i=0;i<song.length;i++) {
         if(song[i]=="(") {
@@ -86,7 +86,7 @@ function geniusRef(artist,song) {
     httpRequest.send();
    
 };
-
+//on call success redirect to the song page
 function handleResponse(e) {
     if (e.target.readyState == 4 && e.target.status == 200) {
         var id =JSON.parse(e.target.responseText)//.response.hits[0].result.id;

@@ -27,7 +27,7 @@ window.addEventListener('beforeunload', function() {
 
 var request_id = 0;
 document.getElementById("search-field").addEventListener("input", searchEvent);
-
+//
 function searchEvent(id) {
 
     var id = ++request_id;
@@ -54,7 +54,7 @@ function searchEvent(id) {
         }, 1000);                        
     }
 }
-
+// shows results of the search
 function show(result) {
 
     loading = false;
