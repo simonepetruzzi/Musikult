@@ -1,6 +1,6 @@
 // This code loads the IFrame Player API code asynchronously.
 
-var video = $('#player').attr("video");
+var video = $('#player').attr("video"); //video url
 if(video) {
 
     var id = filterVideoId();
