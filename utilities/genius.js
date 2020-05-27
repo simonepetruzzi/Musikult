@@ -203,7 +203,7 @@ exports.spotifyToGeniusArtistId = function(token, id, func) {
 				song_name = song_name.slice(0,i)
 			}
 		}
-		console.log("found song " + song_name + "by " + artist_name);
+		
 		var options = {								/* https://api.genius.com/search?q=:query */
 			url: API + "/search?" + querystring.stringify({ q: song_name + " " + artist_name }), 
 			headers: {
@@ -215,7 +215,6 @@ exports.spotifyToGeniusArtistId = function(token, id, func) {
 		request(options, function callback(error, response, body) {
 			
 			if (!error && response.statusCode == 200) {
-				console.log("found artist " + JSON.parse(body).response.hits[0].result.primary_artist.name)
 				var new_id = JSON.parse(body).response.hits[0].result.primary_artist.id;
 				func(new_id);
 			}

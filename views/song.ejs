@@ -52,15 +52,15 @@
                         var songid="<%= spotifyId %>"
                     </script>
                     <% if(addToLibrary[0]) { %>
-                        <button type="button" class="btn btn-secondary btn-lg rounded-pill" onclick="removetrack(songid,token)">Remove From Library</button>
+                        <button type="button" class="btn btn-secondary btn-lg rounded-pill shadow-sm" onclick="removetrack(songid,token)">Remove From Library</button>
                     <% } else { %>
-                        <button type="button" class="btn btn-success btn-lg rounded-pill" onclick="addtrack(songid,token)">Add To Library</button>
+                        <button type="button" class="btn btn-success btn-lg rounded-pill shadow-sm" onclick="addtrack(songid,token)">Add To Library</button>
                     <% } %>
                 <% } %>
             </div>
             <%if(isLogged && spotifyId) { %>
                 <div id="play-button" class="col-3">
-                    <button type="button" class="btn btn-success btn-lg rounded-pill" id="play-button" onclick="play(songid, token)"> Play </button>
+                    <button type="button" class="btn btn-success btn-lg rounded-pill shadow-sm" id="play-button" onclick="play(songid, token)"> Play </button>
                 </div>
             <% } %> 
         </div>
