@@ -198,9 +198,12 @@ exports.spotifyToGeniusArtistId = function(token, id, func) {
 		// removes everything that is after the '(' symbol in the song title
 		// this is used to remove featurings and unnecessary parts to the title of the song
 		// because those parts could cause the search to fail
-		if(song_name.includes('('))
-			song_name = song_name.substring(0, song_name.lastIndexOf('('));
-
+		for(let i = 5; i < song_name.length; i++) {
+			if(song_name[i] == "(" || song_name[i] == "-") {
+				song_name = song_name.slice(0,i)
+			}
+		}
+		console.log("found song " + song_name + "by " + artist_name);
 		var options = {								/* https://api.genius.com/search?q=:query */
 			url: API + "/search?" + querystring.stringify({ q: song_name + " " + artist_name }), 
 			headers: {
@@ -210,8 +213,9 @@ exports.spotifyToGeniusArtistId = function(token, id, func) {
 	
 		//makes the request to Genius Api to obtain the research data
 		request(options, function callback(error, response, body) {
-	
+			
 			if (!error && response.statusCode == 200) {
+				console.log("found artist " + JSON.parse(body).response.hits[0].result.primary_artist.name)
 				var new_id = JSON.parse(body).response.hits[0].result.primary_artist.id;
 				func(new_id);
 			}

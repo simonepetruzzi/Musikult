@@ -69,7 +69,7 @@ const access_token = "kG91TrvmqYf06aeYAOpgxFTXcmUAJ0N0wRCtbn7m-tHXsfGVDWULJAGro3
 const API = "https://api.genius.com";
 //call to get genius song id passing artist and song from spotify
 function geniusRef(artist,song) {
-    for(let i = 6; i < song.length; i++) {
+    for(let i = 3; i < song.length; i++) {
         if(song[i] == "(" || song[i] == "-") {
             song = song.slice(0,i)
         }
