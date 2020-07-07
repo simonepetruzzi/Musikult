@@ -50,4 +50,27 @@ router.post('/lyrics', function(req, res) {
     }
 });
 
+router.get('/tracks', function(res,req) {
+
+    var track = req.query.track;
+    var artist = req.query .artist;
+
+    if(!track || !artist) 
+        res.status(400).send("Invalid Parameters");
+
+    else {
+        genius.geniusSearch(track + " " + artist, function(result) {
+            if(!result) 
+                res.status(404).send("Not Found");
+            else 
+                res.status(200).json({
+                    id: result.songs[0].id,
+                    name: result.songs[0].name,
+                    artist: result.songs[0].artist,
+                    imgUrl: result.songs[0].photo
+                });
+        });
+    }
+});
+
 module.exports = router;
