@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
     if(token) {
         genius.geniusToSpotifySongId(token, id, function(spotifyId) {
             genius.getSongInfo(id, function(songInfo) {
-                db.getLyrics(id, songInfo.title, songInfo.primary_artist.name, function(lyrics) {
+                db.findLyrics(id, songInfo.title, songInfo.primary_artist.name, function(lyrics) {
                     spotify.isInLibrary(token, spotifyId, function(isInLibrary) {
                         res.render('song', {
                             info: songInfo, 
@@ -30,7 +30,7 @@ router.get('/', function(req, res) {
     }
     else {
         genius.getSongInfo(id, function(songInfo) {
-            db.getLyrics(id, songInfo.title, songInfo.primary_artist.name, function(lyrics) {
+            db.findLyrics(id, songInfo.title, songInfo.primary_artist.name, function(lyrics) {
                 res.render('song', {
                     info: songInfo, 
                     lyrics: lyrics, 

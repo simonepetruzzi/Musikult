@@ -26,7 +26,7 @@ exports.getSongInfo = function(title, artist, func) {
         if (!error && response.statusCode == 200) {
             var info = JSON.parse(body).result[0];
             if(info && info.haslyrics)
-                getLyrics(info.api_lyrics, func);
+                findLyrics(info.api_lyrics, func);
             else 
                 func(null);
         }
@@ -40,7 +40,7 @@ exports.getSongInfo = function(title, artist, func) {
 };
 
 //Happi API call to get lyrics of a specific song
-function getLyrics(lyrics_api, func) {
+function findLyrics(lyrics_api, func) {
 
     var options = {
 		url: lyrics_api + '?' + querystring.stringify({

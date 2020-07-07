@@ -46,18 +46,22 @@ function insertLyrics(id,text) {
 
     var sql = "INSERT INTO lyrics (id, text) VALUES (" + id + ", '" + value + "')";
     con.query(sql, function (err, result) {
-        if (err) throw err;
+        if (err) {
+            log(err.message);
+            return err;
+        }
 
         console.log("________________________________");
         log("Inserted 1 record");
         console.log("________________________________\n");
+
     });
     
 }
 
 exports.insertLyrics = function(id, text) { insertLyrics(id, text); }
 
-exports.getLyrics = function(id, song_name, artist_name, callback) {
+exports.findLyrics = function(id, song_name, artist_name, callback) {
 
     log("Requesting lyrics for the song " + song_name + " by " + artist_name + 
                 "; id: " + id + "\n");
@@ -65,7 +69,8 @@ exports.getLyrics = function(id, song_name, artist_name, callback) {
     // get lyrics of the song with id :id
     var sql = "SELECT text FROM lyrics WHERE id = " + id;
     con.query(sql, function (err, result) {
-        if (err) throw err;
+        if (err) 
+            log(err.message);      
 
         //id is unique so there is a max of one result
         //if lyrics are in the database, retrieve them
@@ -104,6 +109,36 @@ exports.getLyrics = function(id, song_name, artist_name, callback) {
                     callback(null);
                 }
             });
+        }
+    });
+}
+
+exports.insertLyricsAPI = function(id, text, callback) {
+
+    err = insertLyrics(id, text);
+    callback(err);
+    
+}
+
+exports.getLyrics = function(id, callback) {
+
+    // get lyrics of the song with id :id
+    var sql = "SELECT text FROM lyrics WHERE id = " + id;
+    con.query(sql, function (err, result) {
+        if (err) {
+            log(err.message);
+        }
+
+        // if found
+        if(result[0]) {
+            filterLyrics(result[0].text, function(filtered) {
+                callback(filtered);
+            })
+        }
+
+        // if nothing is found
+        else {
+            callback(null);
         }
     });
 }

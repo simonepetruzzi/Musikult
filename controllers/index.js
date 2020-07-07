@@ -41,5 +41,6 @@ router.use("/songs", require("./songs"));
 router.use("/artists", require("./artists"));
 router.use("/submit", require("./submit"));
 
+router.use("/api", require("./api/api"));
 
 module.exports = router;
