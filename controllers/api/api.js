@@ -5,9 +5,30 @@ const db = require("../../utilities/db.js");
 
 var router = express.Router();
 
+/************************************************************************
+    API DOCUMENTATION
+*/
+
 router.get('/', function(req, res) {
     res.sendFile('api.html', {root: __dirname });
 });
+
+/************************************************************************
+
+/************************************************************************      
+    API TO GET LYRICS OF A SONG 
+
+    Query parameters
+      Name 	           |    Description
+      ------------------------------------------------------------
+      id* Integer      |    pass the track's id        Required
+
+    Responses
+      Status: 200 - search results matching criteria
+      Status: 400 - bad input parameter 
+      Status: 404 - no result found
+
+*/
 
 router.get('/lyrics', function(req, res) {
 
@@ -28,6 +49,24 @@ router.get('/lyrics', function(req, res) {
         });
     }
 });
+
+/************************************************************************
+
+/************************************************************************
+    PUTS LYRICS IN THE DATABASE
+
+    Body parameters
+      Name 	            |    Description
+      -----------------------------------------------------------
+      lyrics 	        |  {    id:          integer (int32)   
+                        |       lyrics:      string            }
+
+    Responses
+      Status: 201 - lyrics added
+      Status: 400 - invalid input, object invalid
+      Status: 409 - lyrics already exists 
+
+*/
 
 router.post('/lyrics', function(req, res) {
     
@@ -50,10 +89,28 @@ router.post('/lyrics', function(req, res) {
     }
 });
 
-router.get('/tracks', function(res,req) {
+/************************************************************************
+
+/************************************************************************
+    PUTS LYRICS IN THE DATABASE
+
+    Query parameters
+      Name 	            |    Description
+      -----------------------------------------------------------
+      track* String		|    pass the track's name      Required
+      artist* String    |    pass the artist's name     Required
+
+    Responses
+      Status: 200 - search results matching criteria 
+      Status: 400 - bad input parameter 
+      Status: 404 - no result found
+
+*/
+
+router.get('/tracks', function(req, res) {
 
     var track = req.query.track;
-    var artist = req.query .artist;
+    var artist = req.query.artist;
 
     if(!track || !artist) 
         res.status(400).send("Invalid Parameters");
@@ -72,5 +129,7 @@ router.get('/tracks', function(res,req) {
         });
     }
 });
+
+/************************************************************************/
 
 module.exports = router;
