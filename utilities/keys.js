@@ -12,7 +12,7 @@ const SPOTIFY_CLIENT_SECRET = '9a55bd0d2fac417e86b1a915c132bcad';
 const HAPPY_KEY 			= '4ac2bb0MtAJfh11gpj6Nq31FmtEgbk6DfVqMsBev5tdFJi3vCdVHEpme';
 
 //Database
-const DB_PASSWORD			= '12051998';
+const DB_PASSWORD			= '';
 
 /****************************************/
 

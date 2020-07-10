@@ -1,9 +1,13 @@
 const express = require("express");
+const bodyparser = require('body-parser');
 
 const genius = require("../../utilities/genius.js");
 const db = require("../../utilities/db.js");
 
 var router = express.Router();
+
+// Used to take data from the form
+router.use(bodyparser.urlencoded({extended: false}));
 
 /************************************************************************
     API DOCUMENTATION
@@ -79,8 +83,8 @@ router.post('/lyrics', function(req, res) {
     else {
         db.insertLyricsAPI(id, lyrics, function(err) {
             if(err) {
-                console.log(err.code);
-                res.status(409).send("Alredy exists");
+                console.log(err);
+                res.status(409).send("Already exists");
             }
             else {
                 res.status(201).send("Added");
@@ -90,9 +94,28 @@ router.post('/lyrics', function(req, res) {
 });
 
 /************************************************************************
+*/
+
+router.delete('/lyrics', function(req, res) {
+
+    var id = req.query.id;
+    if(isNaN(id)) 
+        res.status(400).send("Invalid Parameters");
+
+    else {
+        db.deleteLyrics(id, function(err) {
+            if(err) 
+                res.status(404).send("Not Found");
+            else {
+                res.status(200).send("OK");
+            }
+        });
+    }
+
+});
 
 /************************************************************************
-    PUTS LYRICS IN THE DATABASE
+    GETS A TRACK 
 
     Query parameters
       Name 	            |    Description

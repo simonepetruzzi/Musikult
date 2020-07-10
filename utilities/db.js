@@ -14,22 +14,41 @@ const keys = require("./keys.js");
 
 const happi = require("./happi.js");
 
-const password = keys.getDBPassword();
+const password  = keys.getDBPassword();
+const DBNAME    = "musikultrc"; 
 
 // create connection with the database musikult
 var con = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: password,
-    database: 'musikult'
 });
 
 // establish connection
 con.connect(function(err) {
 
     if (err) throw err;
-    else log("Connected to database!\n");
+    log("Connected to MySQL!\n");
 
+    // create database if not created
+    con.query("CREATE DATABASE " + DBNAME, function(err, result) {
+        if (err && err.errno == 1007) log("Database found");
+        else if (err) throw err;
+        else log("Database created");            
+    });
+
+    // open database
+    con.query("USE " + DBNAME, function(err, result) {
+        if(err) throw err;
+    });
+
+    // create table if not created
+    con.query("CREATE TABLE lyrics (id int NOT NULL, text varchar(10000), PRIMARY KEY (id))", function(err, result) {
+        if (err && err.errno == 1050) log("Table found");
+        else if (err) throw err;
+        else log("Table created");         
+    });
+    
 });
 
 
@@ -115,9 +134,58 @@ exports.findLyrics = function(id, song_name, artist_name, callback) {
 
 exports.insertLyricsAPI = function(id, text, callback) {
 
-    err = insertLyrics(id, text);
-    callback(err);
+    var value = "";
+    // this part swaps "'" with "§" to avoid errors and basic SQL injection
+    for(var i = 0; i < text.length; i++) {    
+        if(text[i] == "'") 
+            value += '§';
+        else 
+            value += text[i];
+    };
+
+    var sql = "INSERT INTO lyrics (id, text) VALUES (" + id + ", '" + value + "')";
+    con.query(sql, function (err, result) {
+
+        if (err) {
+            callback(err);
+        }
+
+        else {
+
+            console.log("--------------------------------");
+            log("Inserted record with ID: " + id);
+            console.log("------------------------------\n");
+
+            callback(null);
+
+        }
+
+    });
     
+}
+
+exports.deleteLyrics = function(id, callback) {
+
+    // delete lyrics of the song with id :id
+    var sql = "DELETE FROM lyrics WHERE id = " + id;
+    con.query(sql, function (err, result) {
+
+        if (err) {
+            log(err.message);
+        }
+
+        else {
+
+            console.log("--------------------------------")
+            log("Deleted record with ID: " + id);
+            console.log("------------------------------\n");
+
+            callback(null);
+
+        }
+
+    });
+
 }
 
 exports.getLyrics = function(id, callback) {

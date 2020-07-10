@@ -33,7 +33,7 @@ exports.getSongInfo = function(title, artist, func) {
 
 		else {
             console.log(error);
-            func(null);                   //if theres no lyrics the page will still be rendered
+            func(null);                   //if there are no lyrics the page will still be rendered
         }
 	});
 
