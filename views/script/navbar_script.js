@@ -60,18 +60,31 @@ function show(result) {
     loading = false;
     searchBox.empty();
 
+    if(result.songs.length == 0) 
+        searchBox.append("<p class='search-box-text' style='text-align: center; padding-top: 100px'> No results found </p>")
+
     for(i = 0; i < result.songs.length; i++) {
-        var search_element = $("<div class='row tab song' type='song' id='" + result.songs[i].id + "'></div>"); 
-        search_element.append("<img class = 'col-4' id='thumbnail' src=" + result.songs[i].photo + ">");
-        search_element.append("<p class='lead' id='song-text'>" + result.songs[i].name + "<br>" + result.songs[i].artist + "</p>");
+
+        var songName = result.songs[i].name;
+        var artistName = result.songs[i].artist;
+        if(songName.length > 40) songName = result.songs[i].name.substring(0, 37) + "...";
+        if(artistName.length > 40) artistName = result.songs[i].artist.substring(0, 37) + "...";
+
+        var search_element = $("<div class='row tab song result' type='song' id='" + result.songs[i].id + "'></div>"); 
+        search_element.append("<img class='col-4 thumbnail' src=" + result.songs[i].photo + ">");
+        search_element.append("<p class='search-box-text'>" + songName + "<br>" + artistName + "</p>");
         searchBox.append(search_element);
         searchBox.append("<hr>");
     }
 
     for(var i = 0; i < result.artists.length; i++) {
-        var search_element = $("<div class='row tab' type='artist' id='" + result.artists[i].id + "'></div>"); 
-        search_element.append("<img class = 'col-4' id='thumbnail' src=" + result.artists[i].photo + ">");
-        search_element.append("<p class='lead' id='song-text'>" + result.artists[i].name + "</p>");
+
+        var artistName = result.songs[i].artist;
+        if(artistName.length > 40) artistName = result.songs[i].artist.substring(0, 37) + "...";
+
+        var search_element = $("<div class='row tab result' type='artist' id='" + result.artists[i].id + "'></div>"); 
+        search_element.append("<img class='col-4 thumbnail' src=" + result.artists[i].photo + ">");
+        search_element.append("<p class='search-box-text'>" + artistName + "</p>");
         searchBox.append(search_element);
         searchBox.append("<hr>");
     }

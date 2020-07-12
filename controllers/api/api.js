@@ -20,7 +20,7 @@ router.get('/', function(req, res) {
 /************************************************************************
 
 /************************************************************************      
-    API TO GET LYRICS OF A SONG 
+    API USED TO GET LYRICS OF A SONG 
 
     Query parameters
       Name 	           |    Description
@@ -57,7 +57,7 @@ router.get('/lyrics', function(req, res) {
 /************************************************************************
 
 /************************************************************************
-    PUTS LYRICS IN THE DATABASE
+    CREATE LYRICS IN THE DATABASE
 
     Body parameters
       Name 	            |    Description
@@ -94,6 +94,17 @@ router.post('/lyrics', function(req, res) {
 });
 
 /************************************************************************
+    API USED TO DELETE LYRICS OF A SONG 
+
+    Query parameters
+      Name 	           |    Description
+      ------------------------------------------------------------
+      id* Integer      |    pass the track's id        Required
+
+    Responses
+      Status: 200 - search results matching criteria
+      Status: 400 - bad input parameter 
+      Status: 404 - no result found
 */
 
 router.delete('/lyrics', function(req, res) {
