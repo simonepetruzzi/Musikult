@@ -1,8 +1,6 @@
 const request = require('request');
 const querystring = require('querystring');
 const happi = require('./utilities/happi');
-const { reject } = require('async');
-const { resolve } = require('path');
 
 const API = "http://localhost:3000/api";
 
@@ -32,7 +30,7 @@ function insert() {
             }
         
             else {
-                console.log(response.statusCode + " " + response.statusMessage);
+                console.log("Error: " + response.statusCode + " " + response.statusMessage);
                 reject();
             }
         
@@ -59,7 +57,7 @@ function remove() {
             } 
     
             else {
-                console.log(response.statusCode + " " + response.statusMessage);
+                console.log("Error: " + response.statusCode + " " + response.statusMessage);
                 reject();
             }
     
@@ -86,7 +84,7 @@ function find() {
             } 
     
             else {
-                console.log(response.statusCode + " " + response.statusMessage);
+                console.log("Error: " + response.statusCode + " " + response.statusMessage);
                 reject();
             }
     
@@ -133,7 +131,7 @@ function getLyrics() {
             } 
     
             else {
-                console.log(response.statusCode + " " + response.statusMessage);
+                console.log("Error: " + response.statusCode + " " + response.statusMessage);
                 reject();
             }
     
@@ -144,71 +142,101 @@ function getLyrics() {
 
 /***********************************************************************************/
 
-//testID = 1063;
-//remove();
 
-console.log("********************");
-console.log("*       TEST       *");
-console.log("********************");
-
-/*-------------------------------------------*/  // TEST1
-
-testID = 1;
-testLyrics = "This is a test lyrics";
-
-console.log("\nTEST 1:\n");
-
-insert().then( () => {   
-
-    return remove();
-
-}).then( () => {
-
-    console.log("\nSUCCESS\n");
-
-}).catch( () => {
-
-    console.log("\nFAILURE\n");
-
-}).then( () => {
-
-/*-------------------------------------------*/   // TEST2
-console.log("--------------------------------------------");
-
-    testTrack = "Bohemian Rhapsody";
-    testArtist = "Queen";
-
-    console.log("\nTEST 2:\n");
-
-    return find();
-}).then( (response) => {
-
-    testID = response.id;
-    console.log("Found track with ID: " + testID);
-
-    return findLyrics();
-
-}).then( (lyrics) => {
-
-    testLyrics = lyrics;
+request.get({url: API}, function callback(error, response, body) {
     
-    return insert();
+    if (error) {
+        console.log("SERVER IS NOT RUNNING. USE THE COMMAND 'node app' TO RUN THE SERVER");
+        process.exit();
+    } 
 
-}).then( () => {
+    else {
+        test();
+    }
 
-    return getLyrics();
-
-}).then( (lyrics) => {
-
-    console.log("Database responded with these lyrics: \n");
-    console.log(lyrics);
-
-    console.log("\nSUCCESS\n");
-
-}).catch( () => {
-
-    console.log("\nFAILURE\n");
 });
 
-/*-------------------------------------------*/ 
+function test() {
+
+    console.log("********************");
+    console.log("*       TEST       *");
+    console.log("********************");
+
+    /*-------------------------------------------*/  // TEST1
+
+    testID = 1;
+    testLyrics = "This is a test lyrics";
+
+    console.log("\nTEST 1:\n");
+
+    insert().then( () => {   
+
+        return remove();
+
+    }).then( () => {
+
+        console.log("\nSUCCESS\n");
+
+    }).catch( () => {
+
+        console.log("\nFAILURE\n");
+
+    }).then( () => {
+
+    /*-------------------------------------------*/   // TEST2
+    console.log("--------------------------------------------");
+
+        testTrack = "Bohemian Rhapsody";
+        testArtist = "Queen";
+
+        
+
+        console.log("\nTEST 2:\n");
+
+        return find();
+    }).then( (response) => {
+
+        testID = response.id;
+        cleanDB(testID);
+        console.log("Found track with ID: " + testID);
+
+        return findLyrics();
+
+    }).then( (lyrics) => {
+
+        testLyrics = lyrics;
+    
+        return insert();
+
+    }).then( () => {
+
+        return getLyrics();
+
+    }).then( (lyrics) => {
+
+        console.log("Database responded with these lyrics: \n");
+        console.log(lyrics);
+
+        console.log("\nSUCCESS\n");
+
+    }).catch( () => {
+
+        console.log("\nFAILURE\n");
+    });
+
+    /*-------------------------------------------*/ 
+
+}
+
+function cleanDB(id) {
+
+    var formData = {
+        url: API + '/lyrics?id=' + id,
+    }
+
+    request.delete(formData, function callback(error, response, body) {} );
+    
+}
+
+
 
