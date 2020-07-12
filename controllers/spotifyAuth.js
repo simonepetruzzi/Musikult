@@ -3,12 +3,13 @@
 const express = require("express");
 const request = require("request");
 const querystring = require("querystring");
-const keys = require('../utilities/keys');
+
+require('dotenv').config();
 
 const router = express.Router();
 
-const spotify_client_id = keys.getSpotifyClientID();
-const spotify_client_secret = keys.getSpotifyClientSecret();
+const spotify_client_id = process.env.SPOTIFY_CLIENT_ID;
+const spotify_client_secret = process.env.SPOTIFY_CLIENT_SECRET;
 
 // it's called when user is authenticating
 // redirects to spotify oAuth
