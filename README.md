@@ -30,7 +30,7 @@ Nella pagina principale l'utente può cercare brani e artisti oppure fare log-in
 
 - Per installare le dipendenze eseguire `npm install`
 
-- Installare MySQL, impostare la password dell'utente root nel file keys.js
+- Installare MySQL, impostare la password dell'utente root nel file .env
 
 - Per avviare il server eseguire `node app`
 
@@ -124,11 +124,11 @@ La [documentazione](controllers/api/api.html) delle API più dettagliata viene a
 * utilities (cartella)  -  Back-end
   * db.js → modulo che gestisce il database e i suoi servizi
   * genius.js → modulo che comunica con Genius, contiene anche funzioni di conversione tra id di Genius e id di Spotify e viceversa
-  * global.js → modulo contenente le porte del server (definite globalmente)
   * happi.js → comunica con i servizi di happi, offre funzioni per ottenere i testi delle canzoni
   * spotify.js → modulo che comunica con i servizi di Spotify
   * ws.js → web sockets lato server
   
 * app.js → modulo di avvio del server
 * test.js → modulo di avvio del programma di test
+* .env → contiene le variabili globali e le chiavi per accedere ai servizi
   
