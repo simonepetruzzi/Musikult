@@ -18,6 +18,8 @@ require('dotenv').config();
 const password  = process.env.DB_PASSWORD;
 const DBNAME    = "musikultrc"; 
 
+console.log(password);
+
 // create connection with the database musikult
 var con = mysql.createConnection({
     host: "localhost",

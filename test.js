@@ -1,6 +1,7 @@
 const request = require('request');
 const querystring = require('querystring');
 const happi = require('./utilities/happi');
+const readline = require('readline-sync');
 
 require('dotenv').config();
 
@@ -153,7 +154,7 @@ request.get({url: API}, function callback(error, response, body) {
     } 
 
     else {
-        test();
+        test();       
     }
 
 });
@@ -191,8 +192,6 @@ function test() {
         testTrack = "Bohemian Rhapsody";
         testArtist = "Queen";
 
-        
-
         console.log("\nTEST 2:\n");
 
         return find();
@@ -221,6 +220,8 @@ function test() {
 
         console.log("\nSUCCESS\n");
 
+        populateDB();
+
     }).catch( () => {
 
         console.log("\nFAILURE\n");
@@ -238,6 +239,61 @@ function cleanDB(id) {
 
     request.delete(formData, function callback(error, response, body) {} );
     
+}
+
+var list = [
+    ["God's Plan", "Drake"],
+    ["In My Life", "The Beatles"],
+    ["Can't feel my face", "The Weeknd"],
+    ["Africa", "Toto"],
+    ["Pink+White", "Frank Ocean"],
+    ["Time", "Pink Floyd"],
+    ["Chandelier", "Sia"],
+    ["September", "Earth, Wind & Fire"],
+    ["Get Lucky", "Daft Punk"],
+    ["Beat it", "Michael Jackson"],
+]
+
+function populateDB() {
+
+    var ans = readline.question("Do you want to populate the database with a list of " +
+                                 list.length + " entries? [Y/n] ");
+    if(ans == 'Y' || ans == 'y') {
+        populate(0);
+    }
+
+}
+
+function populate(i) {
+
+    if(i < list.length) {
+
+        testTrack = list[i][0];
+        testArtist = list[i][1];
+
+        find().then( (response) => {
+
+            testID = response.id;
+            cleanDB(testID);
+        
+            return findLyrics();
+        
+        }).then( (lyrics) => {
+        
+            testLyrics = lyrics;
+        
+        }).then( () => {
+
+            console.log("")
+            populate(i + 1);
+
+        }).catch(() => {
+
+            console.log("ERROR");
+
+        });
+
+    } 
 }
 
 
