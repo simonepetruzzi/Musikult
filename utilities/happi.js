@@ -2,9 +2,9 @@ const express = require('express');
 const querystring = require('querystring');
 const request = require('request');
 
-const keys = require('./keys');
+require('dotenv').config();
 
-const key = keys.getHappiKey();
+const key = process.env.HAPPI_KEY;
 
 const API = "https://api.happi.dev/v1/music?";
 

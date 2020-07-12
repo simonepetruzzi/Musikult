@@ -165,7 +165,7 @@ exports.getTopArtists=function(token,func){
                 var y = artistFilter(JSON.parse(body));
                 func(y);
             }
-            else{
+            else {
                 func(null);
             }
         }
@@ -176,12 +176,12 @@ exports.getTopArtists=function(token,func){
     });
 };
     
-function artistFilter(info){
+function artistFilter(info) {
     var response;
-    var x ={
+    var x = {
         artisti : []
     }
-    for(var i=0;i<6;i++){
+    for(var i=0;i<6;i++) {
         response = info.items[i];
 
         x.artisti.push({

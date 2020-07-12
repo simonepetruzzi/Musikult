@@ -2,7 +2,9 @@ const request = require('request');
 const querystring = require('querystring');
 const happi = require('./utilities/happi');
 
-const API = "http://localhost:3000/api";
+require('dotenv').config();
+
+const API = "http://localhost:" + process.env.SERVER_PORT + "/api";
 
 var testID;
 var testLyrics;

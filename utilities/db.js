@@ -10,11 +10,12 @@
 
 
 const mysql = require("mysql");
-const keys = require("./keys.js");
 
 const happi = require("./happi.js");
 
-const password  = keys.getDBPassword();
+require('dotenv').config();
+
+const password  = process.env.DB_PASSWORD;
 const DBNAME    = "musikultrc"; 
 
 // create connection with the database musikult

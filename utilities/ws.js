@@ -2,10 +2,11 @@
 
 const WebSocketServer = require('ws').Server;
 
-const global = require('./global');
 const genius = require('./genius');
 
-const wss = new WebSocketServer({ port: global.getWSPort() });
+require('dotenv').config();
+
+const wss = new WebSocketServer({ port: process.env.WS_PORT });
 
 wss.on('connection', function(socket) {
 

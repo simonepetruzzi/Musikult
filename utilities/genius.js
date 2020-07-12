@@ -2,9 +2,9 @@ const querystring = require('querystring');
 const request = require('request');
 const spotify = require('./spotify');
 
-const keys = require('./keys');
+require('dotenv').config();
 
-const access_token = keys.getGeniusAccessToken();
+const access_token = process.env.GENIUS_ACCESS_TOKEN;
 
 const API = "https://api.genius.com";
 
