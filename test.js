@@ -281,6 +281,8 @@ function populate(i) {
         }).then( (lyrics) => {
         
             testLyrics = lyrics;
+
+            return insert();
         
         }).then( () => {
 
