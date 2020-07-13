@@ -67,8 +67,8 @@ function show(result) {
 
         var songName = result.songs[i].name;
         var artistName = result.songs[i].artist;
-        if(songName.length > 40) songName = result.songs[i].name.substring(0, 37) + "...";
-        if(artistName.length > 40) artistName = result.songs[i].artist.substring(0, 37) + "...";
+        if(songName.length > 38) songName = result.songs[i].name.substring(0, 35) + "...";
+        if(artistName.length > 38) artistName = result.songs[i].artist.substring(0, 35) + "...";
 
         var search_element = $("<div class='row tab song result' type='song' id='" + result.songs[i].id + "'></div>"); 
         search_element.append("<img class='col-4 thumbnail' src=" + result.songs[i].photo + ">");
