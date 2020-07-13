@@ -57,6 +57,7 @@
     position: absolute;
     z-index: 1000; /*priority of an element on z axi */
     height: 400px;
+    width: 429px;
     background-color: white;
     border: 1px solid rgba(133, 133, 133, 0.400);
     border-radius: 2px;

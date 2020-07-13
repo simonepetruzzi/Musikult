@@ -71,6 +71,8 @@ Per avviare il programma di test eseguire `test app`, il server deve essere in e
 
 - Happi
 
+- Youtube (Front-End)
+
 ## **API Fornite**
 
 - searchTrack → ritorna la traccia cercata con il relativo id
